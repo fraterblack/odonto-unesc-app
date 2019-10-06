@@ -1,4 +1,4 @@
-import { AuthService } from './../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Injectable } from '@angular/core';
 import {
   CanActivate,
@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanLoad {
+export class AdminAuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   hasPermission(): boolean {
-    if (this.authService.isUserAuthenticated()) {
+    if (this.authService.isAdminAuthenticated()) {
       return true;
     }
 

@@ -4,15 +4,22 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  private logged = true; // TODO: Change to false when implemented all authentication logic
+  private studentAuthenticated = true; // TODO: Change to false when implemented all authentication logic
+  private adminAuthenticated = true; // TODO: Change to false when implemented all authentication logic
 
   constructor() {}
 
   authenticateUser() {
-    this.logged = true;
+    // TODO: Create logic to authenticate user
+    this.studentAuthenticated = true;
+    this.adminAuthenticated = true;
   }
 
-  isUserAuthenticated(): boolean {
-    return this.logged;
+  isStudentAuthenticated(): boolean {
+    return this.studentAuthenticated;
+  }
+
+  isAdminAuthenticated(): boolean {
+    return this.adminAuthenticated;
   }
 }

@@ -1,8 +1,9 @@
+import { AdminAuthGuard } from './core/guards/admin-auth.guard';
 import { ActivityLayoutComponent } from './layouts/activity-layout/activity-layout.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AuthGuard } from './core/guards/auth.guard';
+import { StudentAuthGuard } from './core/guards/student-auth.guard';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { FeaturedMessageLayoutComponent } from './layouts/featured-message-layout/featured-message-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -17,8 +18,8 @@ const routes: Routes = [
   {
     path: '',
     component: ActivityLayoutComponent,
-    canActivate: [AuthGuard],
-    canLoad: [AuthGuard],
+    canActivate: [StudentAuthGuard],
+    canLoad: [StudentAuthGuard],
     children: [
       {
         path: 'activity',
@@ -31,8 +32,8 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
-    canLoad: [AuthGuard],
+    canActivate: [AdminAuthGuard],
+    canLoad: [AdminAuthGuard],
     children: [
       // HOME
       {

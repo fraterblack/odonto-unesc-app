@@ -1,10 +1,11 @@
+import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { NoAuthGuard } from './guards/no-auth.guard';
-import { AuthGuard } from './guards/auth.guard';
+import { StudentAuthGuard } from './guards/student-auth.guard';
 import { throwIfAlreadyLoaded } from './guards/module-load.guard';
 
 @NgModule({
@@ -14,7 +15,8 @@ import { throwIfAlreadyLoaded } from './guards/module-load.guard';
     HttpClientModule
   ],
   providers: [
-    AuthGuard,
+    StudentAuthGuard,
+    AdminAuthGuard,
     NoAuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
