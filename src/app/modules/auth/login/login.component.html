@@ -1,0 +1,103 @@
+<form class="signin-form">
+  <div *ngIf="authTypeIsTeacher()">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+        autocomplete="email"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Password" type="password" name="password" />
+    </mat-form-field>
+
+    <div class="odonto-form-field">
+      <mat-checkbox>Manter-me conectado</mat-checkbox>
+    </div>
+
+    <div class="odonto-form-field">
+      <button class="odonto-block-button" mat-raised-button color="primary" (click)="onLoginClicked()">
+        Entrar
+      </button>
+
+      <a class="remember-me-button" mat-button routerLink="/auth/recovery"
+        >Esqueci minha senha</a
+      >
+    </div>
+
+    <div class="form-divider">
+      <mat-divider></mat-divider>
+      <span class="text">Ou</span>
+    </div>
+
+    <div class="odonto-form-field">
+      <button
+        class="odonto-block-button"
+        mat-raised-button
+        color="accent"
+        (click)="toggleAuthType()"
+      >
+        Logar como Aluno
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="authTypeIsStudent()">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Seu Nome"
+        type="text"
+        formControlName="name"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="ID Aluno"
+        type="text"
+        formControlName="student_id"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Código da Atividade"
+        type="text"
+        formControlName="code"
+        required
+      />
+    </mat-form-field>
+
+    <div class="odonto-form-field">
+      <button class="odonto-block-button" mat-raised-button color="primary">
+        Entrar
+      </button>
+    </div>
+
+    <div class="form-divider">
+      <mat-divider></mat-divider>
+      <span class="text">Ou</span>
+    </div>
+
+    <div class="odonto-form-field">
+      <button
+        class="odonto-block-button"
+        mat-raised-button
+        color="accent"
+        (click)="toggleAuthType()"
+      >
+        Logar como Professor
+      </button>
+    </div>
+  </div>
+
+</form>

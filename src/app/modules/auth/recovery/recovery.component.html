@@ -1,0 +1,25 @@
+<form class="recovery-form">
+  <p>Informe o e-mail cadastrado para sua conta.</p>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Email"
+      type="email"
+      formControlName="email"
+      autocomplete="email"
+      required
+    />
+  </mat-form-field>
+
+  <div class="odonto-form-field">
+    <button class="odonto-block-button" mat-raised-button color="primary">
+      Recuperar Senha
+    </button>
+  </div>
+
+  <div class="odonto-form-field odonto-text-center">
+    <a class="odonto-sm-button" mat-button routerLink="/auth/login">
+      <mat-icon>undo</mat-icon> voltar
+    </a>
+  </div>
+</form>

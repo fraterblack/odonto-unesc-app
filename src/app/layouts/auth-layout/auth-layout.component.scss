@@ -1,0 +1,28 @@
+@import './../../../app-styles-support.scss';
+
+.auth-layout {
+  @include app-background;
+
+  height: 100%;
+}
+
+.auth-container {
+  background: $light-color;
+  height: 100%;
+  overflow: auto;
+}
+
+.auth-content {
+  max-width: 330px;
+  margin: 30px auto;
+  padding: 0 15px;
+}
+
+.logo-container {
+  max-width: 170px;
+  margin: 0 auto 30px;
+
+  .logo {
+    width: 100%;
+  }
+}

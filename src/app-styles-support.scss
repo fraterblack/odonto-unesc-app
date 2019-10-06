@@ -1,0 +1,19 @@
+// Variables
+$light-color: #fff;
+
+$dark-color: #000;
+
+$gray-light-color: #efefef;
+
+$primary-color: #455a64;
+$primary-light-color: #78909c;
+$primary-lighter-color: #cfd8dc;
+
+$accent-color: #039be5;
+$accent-lighter-color: #e1f5fe;
+
+// Mixins
+@mixin app-background {
+  background: url(../../../assets/images/app-background.jpg) $accent-color repeat right -10px center;
+  background-size: auto 400px;
+}

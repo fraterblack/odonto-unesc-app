@@ -1,0 +1,49 @@
+@import '../../../app-styles-support.scss';
+
+$menuItemHeight: 60px;
+
+.menu {
+  margin-top: 10px;
+}
+
+.menu-item {
+  height: $menuItemHeight;
+  color: $primary-color;
+
+  &.active {
+    color: $accent-color;
+    background: rgba($accent-lighter-color, 0.4);
+  }
+
+  .item-content {
+    height: $menuItemHeight;
+    line-height: $menuItemHeight;
+
+    mat-icon {
+      font-size: 36px;
+      margin-right: 18px;
+      vertical-align: -11px;
+      color: inherit;
+    }
+
+    span {
+      font-weight: normal;
+      font-size: 14px;
+    }
+  }
+}
+
+:host ::ng-deep .mat-button-focus-overlay {
+  background: transparent !important;
+}
+
+.mat-list-base .mat-list-item {
+  height: $menuItemHeight;
+}
+
+.about-odonto-unesc {
+  position: absolute;
+  left: 10px;
+  bottom: 5px;
+  color: $primary-light-color;
+}

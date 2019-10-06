@@ -1,0 +1,71 @@
+.admin-layout {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  @media (max-width: 599px) {
+    top: 56px;
+  }
+}
+
+// Header
+.toolbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.toggle-icon {
+  margin-right: 15px;
+}
+
+.logo-container {
+  max-width: 140px;
+  margin: 0;
+
+  a {
+    display: block;
+  }
+
+  @media (max-width: 599px) {
+    max-width: 110px;
+  }
+
+  .logo {
+    width: 100%;
+  }
+}
+
+.header-spacer {
+  flex: 1 1 auto;
+}
+
+.logout-button {
+  margin-left: 5px;
+}
+
+// Sidenav
+.side-nav-container {
+  flex: 1;
+}
+
+.side-nav {
+  width: 240px;
+}
+
+// Content
+.content {
+  padding: 20px 50px 50px 20px;
+
+  @media (max-width: 599px) {
+    padding: 15px;
+  }
+}

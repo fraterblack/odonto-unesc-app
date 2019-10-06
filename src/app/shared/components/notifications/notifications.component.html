@@ -1,0 +1,12 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon matBadge="2" matBadgeColor="warn">notifications</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <span>Notificação 01</span>
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item class="mat-button mat-warn">
+    <span>Notificação 02</span>
+  </button>
+</mat-menu>

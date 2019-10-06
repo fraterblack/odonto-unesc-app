@@ -1,0 +1,57 @@
+<div class="admin-layout">
+  <mat-toolbar color="accent" class="toolbar">
+    <div class="toggle-icon" fxHide.gt-md>
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <h1 class="logo-container">
+      <a routerLink="/admin" mat-flat-button
+        ><img class="logo" alt="Curso Odontologia Unesc" src="../../../assets/images/odonto-unesc.png"
+      /></a>
+    </h1>
+
+    <span class="header-spacer"></span>
+
+    <!-- Settings -->
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>settings_applications</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <span>Gerenciar Professores</span>
+      </button>
+      <button mat-menu-item>
+        <span>Preferências</span>
+      </button>
+    </mat-menu>
+
+    <!-- Logout button -->
+    <button class="logout-button" fxHide.xs mat-flat-button disableRipple="true" color="accent">
+        <mat-icon>exit_to_app</mat-icon> <span class="description">Sair</span>
+    </button>
+    <button class="logout-button" fxHide.gt-xs mat-icon-button>
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+
+  </mat-toolbar>
+  <mat-sidenav-container class="side-nav-container">
+    <!-- Sidenav menu -->
+    <mat-sidenav
+      #snav
+      class="side-nav"
+      [mode]="hideSideNav() ? 'over' : 'side'"
+      [opened]="!hideSideNav()"
+    >
+      <app-admin-nav-menu></app-admin-nav-menu>
+    </mat-sidenav>
+
+    <!-- Content -->
+    <mat-sidenav-content>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

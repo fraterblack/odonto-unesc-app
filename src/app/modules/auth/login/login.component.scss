@@ -1,0 +1,30 @@
+@import '../../../../app-styles-support.scss';
+
+.signin-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signin-form mat-form-field {
+  width: 100%;
+}
+
+.remember-me-button {
+  margin: 10px auto 0;
+  display: block;
+  width: 168px;
+}
+
+.form-divider {
+  margin: 20px 0;
+
+  > .text {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    top: -8px;
+    left: 50%;
+    margin-left: -15px;
+    background: $light-color;
+  }
+}

@@ -1,0 +1,24 @@
+<div class="activity-layout">
+  <mat-toolbar color="accent" class="toolbar">
+    <h1 class="logo-container">
+      <button (click)="goToStart()" mat-flat-button
+        ><img class="logo" alt="Curso Odontologia Unesc" src="../../../assets/images/odonto-unesc.png"
+      /></button>
+    </h1>
+
+    <span class="header-spacer"></span>
+
+    <!-- Logout button -->
+    <button class="logout-button" fxHide.xs mat-flat-button disableRipple="true" color="accent">
+        <mat-icon>exit_to_app</mat-icon> <span class="description">Sair</span>
+    </button>
+    <button class="logout-button" fxHide.gt-xs mat-icon-button>
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+
+  </mat-toolbar>
+
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
