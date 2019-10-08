@@ -1,12 +1,12 @@
-import { AdminAuthGuard } from './core/guards/admin-auth.guard';
-import { ActivityLayoutComponent } from './layouts/activity-layout/activity-layout.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AdminAuthGuard } from './core/guards/admin-auth.guard';
 import { StudentAuthGuard } from './core/guards/student-auth.guard';
+import { ActivityLayoutComponent } from './layouts/activity-layout/activity-layout.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { FeaturedMessageLayoutComponent } from './layouts/featured-message-layout/featured-message-layout.component';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
 const routes: Routes = [
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
     redirectTo: '/auth',
     pathMatch: 'full'
   },
-  // ACTIVITY - Student Area
+  // STUDENT AREA - Activities
   {
     path: '',
     component: ActivityLayoutComponent,
@@ -24,7 +24,7 @@ const routes: Routes = [
       {
         path: 'activity',
         loadChildren: () =>
-          import('./modules/student/activity/activity.module').then(m => m.StudentActivityModule)
+          import('./modules/student/student.module').then(m => m.StudentModule)
       }
     ]
   },
@@ -35,12 +35,11 @@ const routes: Routes = [
     canActivate: [AdminAuthGuard],
     canLoad: [AdminAuthGuard],
     children: [
-      // HOME
       {
         path: '',
         loadChildren: () =>
-          import('./modules/admin/home/home.module').then(m => m.AdminHomeModule)
-      },
+          import('./modules/admin/admin.module').then(m => m.AdminModule)
+      }
     ]
   },
   {

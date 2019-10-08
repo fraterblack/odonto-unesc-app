@@ -7,10 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { ActivityLayoutComponent } from './layouts/activity-layout/activity-layout.component';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { FeaturedMessageLayoutComponent } from './layouts/featured-message-layout/featured-message-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AdminNavMenuComponent } from './layouts/admin-nav-menu/admin-nav-menu.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { FeaturedMessageLayoutComponent } from './layouts/featured-message-layout/featured-message-layout.component';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
