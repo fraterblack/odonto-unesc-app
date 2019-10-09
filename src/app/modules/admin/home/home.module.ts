@@ -9,4 +9,4 @@ import { HomeRoutingModule } from './home-routing.module';
   declarations: [DashboardComponent],
   imports: [CommonModule, HomeRoutingModule, MaterialModule]
 })
-export class AdminHomeModule {}
+export class HomeModule {}

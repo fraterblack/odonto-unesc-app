@@ -19,12 +19,12 @@
       <mat-icon>settings_applications</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <a mat-menu-item routerLink="/admin/users" routerLinkActive="active">
         <span>Gerenciar Professores</span>
-      </button>
-      <button mat-menu-item>
+      </a>
+      <a mat-menu-item routerLink="/admin/settings" routerLinkActive="active">
         <span>Preferências</span>
-      </button>
+      </a>
     </mat-menu>
 
     <!-- Logout button -->

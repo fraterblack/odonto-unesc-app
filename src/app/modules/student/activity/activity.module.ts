@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { StudentActivityRoutingModule } from './activity-routing.module';
+import { ActivityRoutingModule } from './activity-routing.module';
 import { WorkspaceComponent } from './workspace/workspace.component';
 
 
@@ -9,8 +9,8 @@ import { WorkspaceComponent } from './workspace/workspace.component';
   declarations: [WorkspaceComponent],
   imports: [
     CommonModule,
-    StudentActivityRoutingModule
+    ActivityRoutingModule
   ],
   exports: [WorkspaceComponent]
 })
-export class StudentActivityModule { }
+export class ActivityModule { }

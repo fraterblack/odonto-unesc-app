@@ -1,17 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { ActivitiesGridComponent } from './activities-grid/activities-grid.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: '',
-        component: DashboardComponent
-      }
-    ]
+    component: ActivitiesGridComponent
   }
 ];
 
@@ -19,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class HomeRoutingModule {}
+export class ActivitiesRoutingModule { }
