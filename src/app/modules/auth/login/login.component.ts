@@ -30,14 +30,14 @@ export class LoginComponent implements OnInit {
   }
 
   toggleAuthType() {
-    this.authType = this.authType == AuthType.student ? AuthType.teacher : AuthType.student;
+    this.authType = this.authType === AuthType.student ? AuthType.teacher : AuthType.student;
   }
 
   authTypeIsStudent() {
-    return this.authType == AuthType.student;
+    return this.authType === AuthType.student;
   }
 
   authTypeIsTeacher() {
-    return this.authType == AuthType.teacher;
+    return this.authType === AuthType.teacher;
   }
 }

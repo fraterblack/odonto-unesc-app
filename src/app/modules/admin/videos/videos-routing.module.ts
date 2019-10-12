@@ -1,3 +1,4 @@
+import { VideoFormComponent } from './video-form/video-form.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -8,6 +9,14 @@ const routes: Routes = [
   {
     path: '',
     component: VideosGridComponent
+  },
+  {
+    path: 'create',
+    component: VideoFormComponent
+  },
+  {
+    path: 'update/:id',
+    component: VideoFormComponent
   }
 ];
 
