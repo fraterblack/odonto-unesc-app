@@ -1,0 +1,24 @@
+<mat-card>
+    <form class="activity-form">
+        
+        <mat-card-title>Atividade</mat-card-title>
+
+        <mat-form-field>
+            <input matInput placeholder="Título" type="text" formControlName="text" required />
+        </mat-form-field>
+
+        <mat-form-field>
+            <textarea matInput placeholder="Descrição"></textarea>
+        </mat-form-field>
+
+
+        <mat-form-field class="format-date">
+            <input matInput [matDatepicker]="picker" placeholder="Data/Hora Início">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-checkbox>Compartilhar</mat-checkbox>   
+
+    </form>
+</mat-card>

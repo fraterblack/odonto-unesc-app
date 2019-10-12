@@ -1,0 +1,16 @@
+@import '../../../../../app-styles-support.scss';
+
+.activity-form {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.format-date {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+}

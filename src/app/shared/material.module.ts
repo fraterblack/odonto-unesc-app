@@ -13,14 +13,16 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 // import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // import { MatChipsModule } from '@angular/material/chips';
 // import { MatSnackBarModule } from '@angular/material/snack-bar';
 // import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 // import { MatSliderModule } from '@angular/material/';
-// import { MatDatepickerModule } from '@angular/material/datepicker';
-// import { MatNativeDateModule } from '@angular/material/core';
+
+
 
 @NgModule({
   declarations: [],
@@ -44,8 +46,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     // MatSlideToggleModule,
     MatDividerModule,
     // MatSliderModule,
-    // MatDatepickerModule,
-    // MatNativeDateModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatButtonModule,
@@ -67,8 +69,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     // MatSlideToggleModule,
     MatDividerModule,
     // MatSliderModule,
-    // MatDatepickerModule,
-    // MatNativeDateModule
-  ]
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+  ],
 })
 export class MaterialModule {}
