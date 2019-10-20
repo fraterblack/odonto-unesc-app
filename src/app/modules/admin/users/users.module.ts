@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { UsersRoutingModule } from './users-routing.module';
-import { UsersGridComponent } from './users-grid/users-grid.component';
+import { SharedModule } from './../../../shared/shared.module';
 import { UserFormComponent } from './user-form/user-form.component';
+import { UsersGridComponent } from './users-grid/users-grid.component';
+import { UsersRoutingModule } from './users-routing.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { UserFormComponent } from './user-form/user-form.component';
   ],
   imports: [
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    SharedModule
   ]
 })
 export class UsersModule { }

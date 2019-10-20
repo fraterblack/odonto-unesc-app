@@ -1,1 +1,29 @@
-<p>videos-grid works!</p>
+<app-grid
+  [grid]="grid"
+  [data]="data"
+  [busy]="busy"
+  (stateChange)="onGridStateChange($event)"
+></app-grid>
+
+<!-- Grid Actions -->
+<ng-template #actions let-row="row" let-index="index">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button mat-menu-item (click)="onActionClicked('edit', index, row.id)">
+      <mat-icon>edit</mat-icon>
+      <span>Editar</span>
+    </button>
+    <button mat-menu-item (click)="onActionClicked('duplicate', index, row.id)">
+      <mat-icon>file_copy</mat-icon>
+      <span>Duplicar</span>
+    </button>
+    <button mat-menu-item (click)="onActionClicked('delete', index, row.id)">
+      <mat-icon>delete</mat-icon>
+      <span>Excluir</span>
+    </button>
+  </mat-menu>
+</ng-template>
+
+

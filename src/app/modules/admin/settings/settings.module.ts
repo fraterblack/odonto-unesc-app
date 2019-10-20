@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { SharedModule } from './../../../shared/shared.module';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { UpdateSettingsComponent } from './update-settings/update-settings.component';
 
@@ -9,7 +10,8 @@ import { UpdateSettingsComponent } from './update-settings/update-settings.compo
   declarations: [UpdateSettingsComponent],
   imports: [
     CommonModule,
-    SettingsRoutingModule
+    SettingsRoutingModule,
+    SharedModule
   ]
 })
 export class SettingsModule { }
