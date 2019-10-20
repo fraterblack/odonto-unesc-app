@@ -1,0 +1,54 @@
+<div class="filter-container">
+  <mat-form-field>
+    <input matInput
+      [(ngModel)]="searchSentence"
+      (keyup)="filterKeyUp.next($event)"
+      placeholder="Filtrar">
+    <button *ngIf="searchSentence" mat-icon-button matSuffix (click)="clearFilter($event)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
+<div class="table-container">
+  <div *ngIf="busy" class="loading-shade">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <table mat-table
+    [dataSource]="items"
+    class="grid-table"
+    matSort
+    [matSortActive]="grid.sorting ? grid.sorting.default.column : null"
+    [matSortDirection]="grid.sorting ? grid.sorting.default.direction : 'desc'"
+    matSortDisableClear
+  >
+    <ng-container *ngFor="let item of grid.columns" [matColumnDef]="item.name">
+      <th mat-header-cell *matHeaderCellDef
+        [ngClass]="item.headerCssClass"
+        [mat-sort-header]="item.sortId || item.binding"
+        [disabled]="!item.sortActive">{{ item.header }}</th>
+      <!-- TemplateRed binding -->
+      <div *ngIf="isTemplateRefBinding(item.binding)">
+        <td mat-cell *matCellDef="let row; let i = index" [ngClass]="item.rowCssClass">
+          <ng-container
+                [ngTemplateOutlet]="item.binding"
+                [ngTemplateOutletContext]="{ row: row, index: i }">
+          </ng-container>
+        </td>
+      </div>
+      <!-- String Binding -->
+      <div *ngIf="!isTemplateRefBinding(item.binding)">
+        <td mat-cell *matCellDef="let row"
+          [ngClass]="item.rowCssClass">{{ row[item.binding] | dynamic: item.pipe : item.pipeParams }}</td>
+      </div>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+<mat-paginator
+  [length]="totalResults"
+  [pageSize]="this.grid.paging.limit"></mat-paginator>

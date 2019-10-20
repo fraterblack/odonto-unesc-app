@@ -148,4 +148,14 @@ body {
   &-pull-right {
     float: right;
   }
+
+  // Grid
+  &-grid {
+    &-created-at-column {
+      width: 135px;
+    }
+    &-actions-column {
+      width: 30px;
+    }
+  }
 }
