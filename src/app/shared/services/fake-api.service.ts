@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { GridResponse } from './../components/grid/grid';
+import { GridResponse, GridState } from './../components/grid/grid';
 
 /**
  * This service must be used for dev-test purpose only
@@ -15,12 +15,10 @@ import { GridResponse } from './../components/grid/grid';
 export class FakeApiService {
   constructor(private httpClient: HttpClient) {}
 
-  queryVideos(sort: string, order: string, page: number, limit: number = 30, search: string = ''): Observable<GridResponse> {
-    const href = 'http://localhost:3000/videos';
+  queryVideos(args: GridState): Observable<GridResponse> {
+    const api = 'http://localhost:3000/videos';
 
-    const requestUrl = `${href}?_sort=${sort}&_order=${order}&_page=${page}&_limit=${limit}&q=${search}`;
-
-    return this.get(requestUrl, page, limit);
+    return this.get(this.getQueryUrl(api, args), args.page, args.limit);
   }
 
   private get(requestUrl: string, page: number, limit: number) {
@@ -40,5 +38,15 @@ export class FakeApiService {
           return mappedResponse;
         })
       );
+  }
+
+  private getQueryUrl(endpoint: string, args: GridState): string {
+    let requestUrl = `${endpoint}?_sort=${args.sort}&_order=${args.order}&_page=${args.page}&_limit=${args.limit}`;
+
+    if (args.search) {
+      requestUrl += `&q=${args.search}`;
+    }
+
+    return requestUrl;
   }
 }

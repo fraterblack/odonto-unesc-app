@@ -96,7 +96,7 @@ body {
 
   // Title
   &-page-title {
-    margin: 0 0 15px 0;
+    margin: 0 0 20px 0;
     padding: 0;
     font-size: 19px;
     font-weight: normal;
@@ -151,9 +151,22 @@ body {
 
   // Grid
   &-grid {
+    &-actions-container {
+      margin-bottom: 20px;
+
+      button {
+        padding-left: 10px;
+      }
+    }
+
     &-created-at-column {
       width: 135px;
     }
+
+    &-created-at-row {
+      font-size: 12px;
+    }
+
     &-actions-column {
       width: 30px;
     }

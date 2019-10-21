@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
-import { Grid, GridResponse, GridState } from './../../../../shared/components/grid/grid';
+import { GRID_PAGINATION_LIMIT, GridComponent, GridState } from './../../../../shared/components/grid/grid';
 import { FakeApiService } from './../../../../shared/services/fake-api.service';
 
 @Component({
@@ -10,23 +10,15 @@ import { FakeApiService } from './../../../../shared/services/fake-api.service';
   templateUrl: './videos-grid.component.html',
   styleUrls: ['./videos-grid.component.scss']
 })
-export class VideosGridComponent implements OnInit {
+export class VideosGridComponent extends GridComponent implements OnInit {
 
   @ViewChild('actions', { static: true }) actions: TemplateRef<any>;
 
-  constructor(private service: FakeApiService) {}
-
-  busy = false;
-
-  // Grid settings
-  grid: Grid;
-
-  // Grid data
-  data: Subject<GridResponse> = new Subject();
+  constructor(private service: FakeApiService) {
+    super();
+  }
 
   ngOnInit() {
-    this.busy = true;
-
     // Grid settings
     this.grid = {
       columns: [
@@ -35,6 +27,7 @@ export class VideosGridComponent implements OnInit {
           header: 'Criado',
           binding: 'created_at',
           headerCssClass: 'odonto-grid-created-at-column',
+          rowCssClass: 'odonto-grid-created-at-row',
           sortId: 'created_at',
           sortActive: true,
           pipe: new DatePipe('en-US'),
@@ -60,7 +53,7 @@ export class VideosGridComponent implements OnInit {
       ],
       paging: {
         page: 1,
-        limit: 3
+        limit: GRID_PAGINATION_LIMIT
       },
       sorting: {
         default: {
@@ -80,13 +73,20 @@ export class VideosGridComponent implements OnInit {
       }
     };
 
+    this.busy = true;
+
     // Load data for the first time
-    this.service.queryVideos(
-      this.grid.sorting.default.column,
-      this.grid.sorting.default.direction,
-      this.grid.paging.page,
-      this.grid.paging.limit
-    ).subscribe((resp) => {
+    this.service.queryVideos({
+      sort: this.grid.sorting.default.column,
+      order: this.grid.sorting.default.direction,
+      page: this.grid.paging.page,
+      limit: this.grid.paging.limit
+    })
+    .pipe(
+      take(1),
+      takeUntil(this.ngUnsubscribe)
+    )
+    .subscribe((resp) => {
       this.busy = false;
 
       this.data.next(resp);
@@ -94,26 +94,20 @@ export class VideosGridComponent implements OnInit {
     });
   }
 
-  /**
-   * Get data from new grid state
-   *
-   * @param state Grid state
-   */
   onGridStateChange(state: GridState) {
     this.busy = true;
 
-    this.service.queryVideos(
-      state.sort,
-      state.order,
-      state.page,
-      state.limit,
-      state.search
-    ).subscribe((resp) => {
-      this.busy = false;
+    this.service.queryVideos(state)
+      .pipe(
+        take(1),
+        takeUntil(this.ngUnsubscribe)
+      )
+      .subscribe((resp) => {
+        this.busy = false;
 
-      this.data.next(resp);
-      this.data.asObservable();
-    });
+        this.data.next(resp);
+        this.data.asObservable();
+      });
   }
 
   onActionClicked(action: string, index: number, id: number) {
