@@ -25,7 +25,7 @@ import { Grid, GridPaginatorIntl, GridResponse, GridState } from './grid';
     { provide: MatPaginatorIntl, useClass: GridPaginatorIntl }
   ]
 })
-export class GridComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
+export class GridComponent implements AfterViewInit, AfterContentInit, OnDestroy {
 
   @Input() grid: Grid;
   // tslint:disable-next-line: no-input-rename
@@ -47,10 +47,6 @@ export class GridComponent implements OnInit, AfterViewInit, AfterContentInit, O
   filterChangeSubscription: Subscription;
   stateChangeSubscription: Subscription;
   filterKeyUp = new Subject<any>();
-
-  ngOnInit() {
-
-  }
 
   ngAfterContentInit() {
     // Set displayed columns from grid column names
