@@ -11,7 +11,7 @@ import { FeaturedMessageLayoutComponent } from './layouts/featured-message-layou
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/auth',
+    redirectTo: '/auth/login',
     pathMatch: 'full'
   },
   // STUDENT AREA - Activities
