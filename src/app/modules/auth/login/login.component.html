@@ -1,32 +1,39 @@
 <form class="signin-form">
-  <div *ngIf="authTypeIsTeacher()">
+  <!-- LOGIN AS ADMINISTRATOR -->
+  <div *ngIf="authTypeIsAdministrator()" [formGroup]="authAdminGroup">
     <mat-form-field>
       <input
         matInput
-        placeholder="Email"
-        type="email"
-        formControlName="email"
-        autocomplete="email"
+        placeholder="Código"
+        type="text"
+        formControlName="code"
         required
       />
+      <mat-error>Informe seu código Unesc</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Password" type="password" name="password" />
+      <input
+        matInput
+        placeholder="Password"
+        type="password"
+        formControlName="password"
+        required
+      />
+      <mat-error>Informe a senha</mat-error>
     </mat-form-field>
 
     <div class="odonto-form-field">
-      <mat-checkbox>Manter-me conectado</mat-checkbox>
-    </div>
-
-    <div class="odonto-form-field">
-      <button class="odonto-block-button" mat-raised-button color="primary" (click)="onLoginClicked()">
+      <button type="button"
+        matButton
+        class="odonto-block-button"
+        mat-raised-button color="primary"
+        (click)="onLoginAdministrator()">
         Entrar
       </button>
 
-      <a class="remember-me-button" mat-button routerLink="/auth/recovery"
-        >Esqueci minha senha</a
-      >
+      <a class="remember-me-button"
+        mat-button routerLink="/auth/recovery">Esqueci minha senha</a>
     </div>
 
     <div class="form-divider">
@@ -36,6 +43,7 @@
 
     <div class="odonto-form-field">
       <button
+        type="button"
         class="odonto-block-button"
         mat-raised-button
         color="accent"
@@ -46,25 +54,26 @@
     </div>
   </div>
 
-  <div *ngIf="authTypeIsStudent()">
+  <!-- LOGIN AS STUDENT -->
+  <div *ngIf="authTypeIsStudent()" [formGroup]="authStudentGroup">
     <mat-form-field>
       <input
         matInput
         placeholder="Seu Nome"
         type="text"
         formControlName="name"
-        required
-      />
+        required/>
+      <mat-error>Informe seu nome</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input
         matInput
-        placeholder="ID Aluno"
+        placeholder="Código de Aluno"
         type="text"
-        formControlName="student_id"
-        required
-      />
+        formControlName="code"
+        required/>
+      <mat-error>Informe seu código de aluno Unesc</mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -72,13 +81,18 @@
         matInput
         placeholder="Código da Atividade"
         type="text"
-        formControlName="code"
-        required
-      />
+        formControlName="activity_code"
+        required/>
+      <mat-error>Informe o código da atividade</mat-error>
     </mat-form-field>
 
     <div class="odonto-form-field">
-      <button class="odonto-block-button" mat-raised-button color="primary">
+      <button
+        matButton
+        type="button"
+        class="odonto-block-button"
+        mat-raised-button color="primary"
+        (click)="onLoginStudent()">
         Entrar
       </button>
     </div>
@@ -90,6 +104,7 @@
 
     <div class="odonto-form-field">
       <button
+        type="button"
         class="odonto-block-button"
         mat-raised-button
         color="accent"

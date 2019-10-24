@@ -11,7 +11,7 @@ import { DynamicPipe } from './pipes/dynamic.pipe';
   declarations: [
     NotificationsComponent,
     GridComponent,
-    DynamicPipe
+    DynamicPipe,
   ],
   imports: [
     CommonModule,

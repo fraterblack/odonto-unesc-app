@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminAuthGuard implements CanActivate, CanLoad {
+export class ManagerAuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate():
@@ -23,7 +23,7 @@ export class AdminAuthGuard implements CanActivate, CanLoad {
   }
 
   hasPermission(): boolean {
-    if (this.authService.isAdminLoggedIn() || this.authService.isManagerLoggedIn()) {
+    if (this.authService.isManagerLoggedIn()) {
       return true;
     }
 

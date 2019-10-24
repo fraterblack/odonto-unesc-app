@@ -1,16 +1,8 @@
-import { AuthService } from '../services/auth.service';
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  CanLoad,
-  Route,
-  Router,
-  UrlSegment,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router';
+import { CanActivate, CanLoad, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +10,7 @@ import { Observable } from 'rxjs';
 export class StudentAuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
+  canActivate():
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
@@ -29,19 +18,17 @@ export class StudentAuthGuard implements CanActivate, CanLoad {
     return this.hasPermission();
   }
 
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]
-  ): Observable<boolean> | Promise<boolean> | boolean {
+  canLoad(): Observable<boolean> | Promise<boolean> | boolean {
     return this.hasPermission();
   }
 
   hasPermission(): boolean {
-    if (this.authService.isStudentAuthenticated()) {
+    if (this.authService.isStudentLoggedIn()) {
       return true;
     }
 
-    this.router.navigate(['/auth']);
+    this.authService.logout();
+    this.router.navigate(['/auth/login']);
 
     return false;
   }

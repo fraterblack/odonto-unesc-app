@@ -110,7 +110,7 @@ export class VideosGridComponent extends GridComponent implements OnInit {
       });
   }
 
-  onActionClicked(action: string, index: number, id: number) {
+  onAction(action: string, index: number, id: number) {
     console.log('Ação clicada: ', action);
     console.log('Index: ', index);
     console.log('ID: ', id);

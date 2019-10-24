@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { RecoveryComponent } from './recovery/recovery.component';
@@ -15,6 +15,10 @@ const routes: Routes = [
     children: [
       {
         path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'logout',
         component: LoginComponent
       },
       {
