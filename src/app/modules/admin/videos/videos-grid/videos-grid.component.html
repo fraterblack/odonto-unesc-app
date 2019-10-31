@@ -1,7 +1,7 @@
 <h3 class="odonto-page-title">Vídeos</h3>
 
 <div class="odonto-grid-actions-container">
-  <button mat-raised-button color="primary" (click)="onActionClicked('new')">
+  <button mat-raised-button color="primary" (click)="onAction('new')">
     <mat-icon>add</mat-icon> Novo Vídeo
   </button>
 </div>
@@ -19,15 +19,15 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
-    <button mat-menu-item (click)="onActionClicked('edit', index, row.id)">
+    <button mat-menu-item (click)="onAction('edit', index, row.id)">
       <mat-icon>edit</mat-icon>
       <span>Editar</span>
     </button>
-    <button mat-menu-item (click)="onActionClicked('duplicate', index, row.id)">
+    <button mat-menu-item (click)="onAction('duplicate', index, row.id)">
       <mat-icon>file_copy</mat-icon>
       <span>Duplicar</span>
     </button>
-    <button mat-menu-item (click)="onActionClicked('delete', index, row.id)">
+    <button mat-menu-item (click)="onAction('delete', index, row.id)">
       <mat-icon>delete</mat-icon>
       <span>Excluir</span>
     </button>

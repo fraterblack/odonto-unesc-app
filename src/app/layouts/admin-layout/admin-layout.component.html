@@ -28,10 +28,10 @@
     </mat-menu>
 
     <!-- Logout button -->
-    <button class="logout-button" fxHide.xs mat-flat-button disableRipple="true" color="accent">
+    <button (click)="onLogout()" class="logout-button" fxHide.xs mat-flat-button disableRipple="true" color="accent" ng>
         <mat-icon>exit_to_app</mat-icon> <span class="description">Sair</span>
     </button>
-    <button class="logout-button" fxHide.gt-xs mat-icon-button>
+    <button (click)="onLogout()" class="logout-button" fxHide.gt-xs mat-icon-button>
         <mat-icon>exit_to_app</mat-icon>
     </button>
 

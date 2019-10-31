@@ -76,7 +76,8 @@ body {
 
   // Add same bottom padding as defined in the mat-form-field
   &-form-field {
-    padding-bottom: 1.25em
+    padding-top: 0.84375em;
+    padding-bottom: 1.25em;
   }
 
   // Buttons
@@ -169,6 +170,35 @@ body {
 
     &-actions-column {
       width: 30px;
+    }
+  }
+
+  &-snack-bar {
+    &-error {
+      background: $red-color;
+      color: $light-color;
+
+      .mat-simple-snackbar-action {
+        color: $light-color;
+      }
+    }
+
+    &-warning {
+      background: $yellow-color;
+      color: $dark-color;
+
+      .mat-simple-snackbar-action {
+        color: $dark-color;
+      }
+    }
+
+    &-success {
+      background: $green-color;
+      color: $light-color;
+
+      .mat-simple-snackbar-action {
+        color: $light-color;
+      }
     }
   }
 }

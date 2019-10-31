@@ -16,7 +16,7 @@ export class FakeApiService {
   constructor(private httpClient: HttpClient) {}
 
   queryVideos(args: GridState): Observable<GridResponse> {
-    const api = 'http://localhost:3000/videos';
+    const api = 'http://localhost:4000/api/videos';
 
     return this.get(this.getQueryUrl(api, args), args.page, args.limit);
   }

@@ -1,4 +1,4 @@
-<form class="recovery-form">
+<form class="recovery-form" [formGroup]="authRecoveryGroup">
   <p>Informe o e-mail cadastrado para sua conta.</p>
   <mat-form-field>
     <input
@@ -6,14 +6,17 @@
       placeholder="Email"
       type="email"
       formControlName="email"
-      autocomplete="email"
-      required
-    />
+      email
+      required/>
+    <mat-error>Informe um email válido</mat-error>
   </mat-form-field>
 
   <div class="odonto-form-field">
-    <button class="odonto-block-button" mat-raised-button color="primary">
-      Recuperar Senha
+    <button
+      matButton
+      class="odonto-block-button"
+      mat-raised-button color="primary"
+      (click)="onRecoveryPassword()">Recuperar Senha
     </button>
   </div>
 
