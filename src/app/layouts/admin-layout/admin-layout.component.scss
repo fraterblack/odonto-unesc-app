@@ -25,6 +25,10 @@
 
 .toggle-icon {
   margin-right: 15px;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
 }
 
 .logo-container {
@@ -50,6 +54,19 @@
 
 .logout-button {
   margin-left: 5px;
+  display: block;
+
+  &-extended {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    display: none;
+
+    &-extended {
+      display: block;
+    }
+  }
 }
 
 // Sidenav
