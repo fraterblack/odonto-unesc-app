@@ -1,2 +1,33 @@
 <h3 class="odonto-page-title">Minha Conta</h3>
 
+<div class="form-container" [formGroup]="formGroup">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Nome"
+            type="text"
+            formControlName="name"
+            required
+          />
+          <mat-error>Nome é obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Nome"
+            type="text"
+            formControlName="name"
+            required
+          />
+          <mat-error>Nome é obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>

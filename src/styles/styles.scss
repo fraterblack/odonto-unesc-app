@@ -19,6 +19,22 @@ p {
   margin: 0;
 }
 
+// Bootstrap Grid System
+@import "~bootstrap/scss/bootstrap-grid";
+
+// Force mat-form-field full width
+.col mat-form-field {
+  width: 100%;
+}
+
+// Force container not has paddings
+.container,
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Material Theming
 @import '~@angular/material/theming';
 
 // Plus imports for other components in your app.

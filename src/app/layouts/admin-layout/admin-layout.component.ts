@@ -20,7 +20,7 @@ export class AdminLayoutComponent implements OnDestroy {
 
     this.mdSizeQueryListener = () => changeDetectorRef.detectChanges();
 
-    this.mdSizeQuery = media.matchMedia('(max-width: 1279px)');
+    this.mdSizeQuery = media.matchMedia('(max-width: 1024px)');
     this.mdSizeQuery.addEventListener('change', this.mdSizeQueryListener);
   }
 

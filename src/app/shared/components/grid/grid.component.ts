@@ -5,7 +5,6 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
-  OnInit,
   Output,
   TemplateRef,
   ViewChild

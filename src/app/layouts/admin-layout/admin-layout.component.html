@@ -1,6 +1,6 @@
 <div class="admin-layout">
   <mat-toolbar color="accent" class="toolbar">
-    <div class="toggle-icon" fxHide.gt-md>
+    <div class="toggle-icon">
       <button mat-icon-button (click)="snav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
@@ -31,10 +31,10 @@
     </mat-menu>
 
     <!-- Logout button -->
-    <button (click)="onLogout()" class="logout-button" fxHide.xs mat-flat-button disableRipple="true" color="accent" ng>
+    <button (click)="onLogout()" class="logout-button logout-button-extended" mat-flat-button disableRipple="true" color="accent" ng>
         <mat-icon>exit_to_app</mat-icon> <span class="description">Sair</span>
     </button>
-    <button (click)="onLogout()" class="logout-button" fxHide.gt-xs mat-icon-button>
+    <button (click)="onLogout()" class="logout-button" mat-icon-button>
         <mat-icon>exit_to_app</mat-icon>
     </button>
 
