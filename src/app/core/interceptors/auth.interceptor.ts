@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { AlertService, AlertType } from './../../shared/services/alert.service';
+import { AlertService, AlertType } from './../services/alert.service';
 import { AuthService } from './../services/auth.service';
 
 @Injectable({

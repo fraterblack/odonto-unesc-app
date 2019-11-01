@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Unsubscrable } from 'src/app/shared/classes/common';
 
+import { AlertService, AlertType } from './../../../core/services/alert.service';
 import { AuthService } from './../../../core/services/auth.service';
 import { FormValidationHelper } from './../../../shared/classes/form-validation-helper';
-import { AlertService, AlertType } from './../../../shared/services/alert.service';
 
 export enum AuthType {
   teacher = 'Teacher',
@@ -74,7 +74,7 @@ export class LoginComponent extends Unsubscrable implements OnInit {
     .subscribe(res => {
       this.router.navigate(['/admin']);
     }, error => {
-      this.alertService.open(error.error, AlertType.ERROR);
+      this.alertService.open(error, AlertType.ERROR);
     });
   }
 
