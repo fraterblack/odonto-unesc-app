@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { GridResponse, GridState } from './../components/grid/grid';
+import { GridResponse, GridState } from '../../shared/components/grid/grid';
 
 /**
  * This service must be used for dev-test purpose only

@@ -19,11 +19,14 @@
       <mat-icon>settings_applications</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <a mat-menu-item routerLink="/admin/users" routerLinkActive="active">
-        <span>Gerenciar Professores</span>
+      <a mat-menu-item routerLink="/admin/settings/my-account" routerLinkActive="active">
+        <span>Minha Conta</span>
       </a>
       <a mat-menu-item routerLink="/admin/settings" routerLinkActive="active">
         <span>Preferências</span>
+      </a>
+      <a mat-menu-item routerLink="/admin/users" routerLinkActive="active" *ngIf="authService.isManagerLoggedIn()">
+        <span>Gerenciar Professores</span>
       </a>
     </mat-menu>
 

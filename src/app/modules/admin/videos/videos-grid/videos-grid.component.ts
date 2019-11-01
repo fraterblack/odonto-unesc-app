@@ -2,8 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { take, takeUntil } from 'rxjs/operators';
 
+import { FakeApiService } from '../../../../core/services/fake-api.service';
 import { GRID_PAGINATION_LIMIT, GridComponent, GridState } from './../../../../shared/components/grid/grid';
-import { FakeApiService } from './../../../../shared/services/fake-api.service';
 
 @Component({
   selector: 'app-videos-grid',

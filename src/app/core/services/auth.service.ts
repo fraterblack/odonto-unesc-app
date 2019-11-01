@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as jwtDecode from 'jwt-decode';
 import * as moment from 'moment';
 import { shareReplay, tap } from 'rxjs/operators';
 
-import { environment } from './../../../environments/environment';
+import { ApiService } from './api.service';
 
 export enum AuthenticationType {
   ADMINISTRATOR = 'admin',
@@ -34,7 +33,7 @@ export interface JWTPayload {
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private apiService: ApiService) {}
 
   /**
    * Login Administrator user
@@ -42,7 +41,7 @@ export class AuthService {
    * @param password User password
    */
   loginAdministrator(code: string, password: string) {
-    return this.http.post(`${environment.authApiUrl}/signin`, { code, password })
+    return this.apiService.post('/signin', { code, password })
       .pipe(
         tap(res => this.setSession(res)),
         shareReplay()
