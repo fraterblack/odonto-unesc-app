@@ -3,7 +3,7 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 import { SortDirection } from '@angular/material/sort';
 import { Subject } from 'rxjs';
 
-import { Unsubscrable } from '../../classes/common';
+import { Unsubscrable } from '../../common';
 
 /*
 * Constants

@@ -1,33 +1,92 @@
 <h3 class="odonto-page-title">Minha Conta</h3>
 
-<div class="form-container" [formGroup]="formGroup">
-  <div class="container">
+<div class="odonto-form-container" [formGroup]="formGroup">
+  <div class="container-fluid">
     <div class="row">
-      <div class="col">
+      <div class="col col-md-6">
         <mat-form-field>
           <input
             matInput
-            placeholder="Nome"
             type="text"
-            formControlName="name"
+            formControlName="code"
             required
           />
-          <mat-error>Nome é obrigatório</mat-error>
+          <mat-label>Código Unesc</mat-label>
+          <mat-error>Código é obrigatório</mat-error>
         </mat-form-field>
       </div>
+    </div>
 
-      <div class="col">
+    <div class="row">
+      <div class="col col-md-6">
         <mat-form-field>
           <input
             matInput
-            placeholder="Nome"
             type="text"
             formControlName="name"
             required
           />
+          <mat-label>Nome</mat-label>
           <mat-error>Nome é obrigatório</mat-error>
         </mat-form-field>
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-6">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="email"
+            email
+            required
+          />
+          <mat-label>Email</mat-label>
+          <mat-error>Informe um email válido</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-4">
+        <mat-form-field>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+          />
+          <mat-label>Senha</mat-label>
+          <mat-hint>Informe uma nova senha caso deseje alterá-la</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-4">
+        <mat-form-field>
+          <input
+            matInput
+            placeholder="Repita a senha informada acima"
+            type="password"
+            formControlName="repeat_password"
+            pattern="{{ formGroup.get('password').value }}"
+            [required]="formGroup.get('password').value !== null && formGroup.get('password').value !== '' && formGroup.get('password').value !== undefined"
+          />
+          <mat-label>Confirme Nova Senha</mat-label>
+          <mat-error>Senha e confirmação de senha não são iguais</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="odonto-form-actions">
+      <button
+        matButton
+        type="button"
+        mat-raised-button color="primary"
+        (click)="onSave()">
+        Salvar
+      </button>
     </div>
   </div>
 </div>

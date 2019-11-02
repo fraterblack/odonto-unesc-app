@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { FormValidationHelper } from './../../../shared/classes/form-validation-helper';
+import { FormHelper } from '../../../shared/form-helper';
 
 @Component({
   selector: 'app-recovery',
@@ -19,8 +19,8 @@ export class RecoveryComponent implements OnInit {
   }
 
   onRecoveryPassword() {
-    if (FormValidationHelper.hasError(this.authRecoveryGroup)) {
-      FormValidationHelper.markAllTouched(this.authRecoveryGroup);
+    if (FormHelper.hasError(this.authRecoveryGroup)) {
+      FormHelper.markAllTouched(this.authRecoveryGroup);
 
       return;
     }

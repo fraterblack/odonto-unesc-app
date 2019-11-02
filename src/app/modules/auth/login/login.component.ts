@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { Unsubscrable } from 'src/app/shared/classes/common';
+import { Unsubscrable } from 'src/app/shared/common';
 
+import { FormHelper } from '../../../shared/form-helper';
 import { AlertService, AlertType } from './../../../core/services/alert.service';
 import { AuthService } from './../../../core/services/auth.service';
-import { FormValidationHelper } from './../../../shared/classes/form-validation-helper';
 
 export enum AuthType {
   teacher = 'Teacher',
@@ -58,8 +58,8 @@ export class LoginComponent extends Unsubscrable implements OnInit {
   }
 
   onLoginAdministrator() {
-    if (FormValidationHelper.hasError(this.authAdminGroup)) {
-      FormValidationHelper.markAllTouched(this.authAdminGroup);
+    if (FormHelper.hasError(this.authAdminGroup)) {
+      FormHelper.markAllTouched(this.authAdminGroup);
 
       return;
     }
@@ -68,9 +68,7 @@ export class LoginComponent extends Unsubscrable implements OnInit {
       this.authAdminGroup.controls.code.value,
       this.authAdminGroup.controls.password.value
     )
-    .pipe(
-      takeUntil(this.ngUnsubscribe)
-    )
+    .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(res => {
       this.router.navigate(['/admin']);
     }, error => {
@@ -79,8 +77,8 @@ export class LoginComponent extends Unsubscrable implements OnInit {
   }
 
   onLoginStudent() {
-    if (FormValidationHelper.hasError(this.authStudentGroup)) {
-      FormValidationHelper.markAllTouched(this.authStudentGroup);
+    if (FormHelper.hasError(this.authStudentGroup)) {
+      FormHelper.markAllTouched(this.authStudentGroup);
 
       return;
     }

@@ -1,13 +1,11 @@
-import { Deserializable } from './deserializable.model';
+import { Model } from './model';
 
-export class User implements Deserializable {
+export class User extends Model {
   id: number;
+  code: number;
   name: string;
   email: string;
   manager: boolean;
-
-  deserialize(input: any): this {
-    Object.assign(this, input);
-    return this;
-  }
+  password?: string;
+  active?: boolean;
 }

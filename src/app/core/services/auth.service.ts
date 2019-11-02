@@ -64,10 +64,27 @@ export class AuthService {
    *
    * @returns string
    */
-  getToken(): any {
+  getToken(): string {
     return localStorage.getItem(SessionName.TOKEN);
   }
 
+  /**
+   * Get active token
+   *
+   * @returns string
+   */
+  getUserId(): number {
+    return Number.parseInt(localStorage.getItem(SessionName.ID), 0);
+  }
+
+  /**
+   * Get active token
+   *
+   * @returns string
+   */
+  getUsername(): string {
+    return localStorage.getItem(SessionName.NAME);
+  }
   /**
    * Get authentication expiration
    *
