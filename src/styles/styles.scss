@@ -217,4 +217,19 @@ body {
       }
     }
   }
+
+  // Form
+  &-form-container {
+    mat-form-field {
+      margin-bottom: 10px;
+    }
+  }
+
+  &-form-actions {
+    margin-top: 15px;
+
+    button {
+      min-width: 100px;
+    }
+  }
 }

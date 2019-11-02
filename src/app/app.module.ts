@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -11,6 +12,10 @@ import { AdminNavMenuComponent } from './layouts/admin-nav-menu/admin-nav-menu.c
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { FeaturedMessageLayoutComponent } from './layouts/featured-message-layout/featured-message-layout.component';
 import { SharedModule } from './shared/shared.module';
+
+const appearance: MatFormFieldDefaultOptions = {
+  appearance: 'legacy'
+};
 
 @NgModule({
   declarations: [
@@ -36,7 +41,12 @@ import { SharedModule } from './shared/shared.module';
     // app
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: appearance
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
