@@ -14,6 +14,15 @@ export class ApiService {
   ) {}
 
   private formatErrors(error: any) {
+    // Try to extract error message from returned error
+    if (error.error && error.error.detalhes && error.error.detalhes instanceof Object) {
+      if (error.error.detalhes.errors) {
+        return throwError(error.error.detalhes.errors[0].message);
+      }
+
+      return throwError(error.error.detalhes.erro);
+    }
+
     if (error.error instanceof Object) {
       return throwError(error.message);
     }

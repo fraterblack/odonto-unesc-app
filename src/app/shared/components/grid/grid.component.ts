@@ -78,7 +78,7 @@ export class GridComponent implements AfterViewInit, AfterContentInit, OnDestroy
   onDataChange(data: GridResponse) {
     this.totalResults = data.total;
 
-    this.items = data.results;
+    this.items = data.items;
   }
 
   /**

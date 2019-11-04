@@ -1,1 +1,36 @@
-<p>users-grid works!</p>
+<h3 class="odonto-page-title">Usuários</h3>
+
+<div class="odonto-grid-actions-container">
+  <button mat-raised-button color="primary" (click)="onAction('new')">
+    <mat-icon>add</mat-icon> Novo Usuário
+  </button>
+</div>
+
+<app-grid
+  [grid]="grid"
+  [data]="data"
+  [busy]="busy"
+  (stateChange)="onGridStateChange($event)"
+></app-grid>
+
+<!-- Active -->
+<ng-template #manager let-row="row" let-index="index">
+    <mat-icon *ngIf="row.manager">check</mat-icon>
+</ng-template>
+
+<ng-template #active let-row="row" let-index="index">
+    <mat-icon *ngIf="row.active">check</mat-icon>
+</ng-template>
+
+<!-- Grid Actions -->
+<ng-template #actions let-row="row" let-index="index">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button mat-menu-item (click)="onAction('edit', index, row.id)">
+      <mat-icon>edit</mat-icon>
+      <span>Editar</span>
+    </button>
+  </mat-menu>
+</ng-template>

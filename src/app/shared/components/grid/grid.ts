@@ -57,7 +57,7 @@ export interface GridState {
 }
 
 export interface  GridResponse {
-  results: any[];
+  items: any[];
   limit: number;
   page: number;
   count: number;

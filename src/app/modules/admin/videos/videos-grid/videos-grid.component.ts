@@ -2,7 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { take, takeUntil } from 'rxjs/operators';
 
-import { FakeApiService } from '../../../../core/services/fake-api.service';
 import { GRID_PAGINATION_LIMIT, GridComponent, GridState } from './../../../../shared/components/grid/grid';
 
 @Component({
@@ -13,10 +12,10 @@ import { GRID_PAGINATION_LIMIT, GridComponent, GridState } from './../../../../s
 export class VideosGridComponent extends GridComponent implements OnInit {
 
   @ViewChild('actions', { static: true }) actions: TemplateRef<any>;
-
+/*
   constructor(private service: FakeApiService) {
     super();
-  }
+  }*/
 
   ngOnInit() {
     // Grid settings
