@@ -28,17 +28,17 @@ export class UserFormComponent extends Form implements OnInit {
     active: new FormControl(true)
   });
 
-  userId: number;
+  modelId: number;
 
   constructor(alertService: AlertService, private userService: UserService, private router: Router, route: ActivatedRoute) {
     super(alertService);
 
-    this.userId = route.snapshot.params.id;
+    this.modelId = route.snapshot.params.id;
   }
 
   ngOnInit() {
-    if (this.userId) {
-      this.userService.get(this.userId)
+    if (this.modelId) {
+      this.userService.get(this.modelId)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((res) => FormHelper.setFormGroupValues(this.formGroup, res, ['password', 'repeat_password']));
     }
@@ -54,8 +54,8 @@ export class UserFormComponent extends Form implements OnInit {
 
     let action$: Observable<any>;
 
-    if (this.userId) {
-      action$ = this.userService.put(this.userId, user);
+    if (this.modelId) {
+      action$ = this.userService.put(this.modelId, user);
     } else {
       action$ = this.userService.post(user);
     }
@@ -69,7 +69,7 @@ export class UserFormComponent extends Form implements OnInit {
           this.formGroup.get('repeat_password').reset();
 
           this.emitSuccessMessage(
-            this.userId
+            this.modelId
             ? Message.SUCCESSFUL_REGISTRY_EDITION
             : Message.SUCCESSFUL_REGISTRY_INSERTION);
 
@@ -80,7 +80,7 @@ export class UserFormComponent extends Form implements OnInit {
           // When save only
           } else {
             // When is a new registry, redirect to update
-            if (!this.userId) {
+            if (!this.modelId) {
               this.router.navigate([`/admin/users/update/${res.id}`]);
             }
           }
