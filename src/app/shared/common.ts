@@ -10,6 +10,8 @@ import { FormHelper } from './form-helper';
  */
 export enum Message {
   INVALID_FORM = 'Você tem erros no formulário abaixo',
+  SUCCESSFUL_REGISTRY_INSERTION = 'Cadastro salvo com sucesso!',
+  UNSUCCESSFUL_REGISTRY_INSERTION = 'Houve um erro ao salvar o cadastro',
   SUCCESSFUL_REGISTRY_EDITION = 'Cadastro editado com sucesso!',
   UNSUCCESSFUL_REGISTRY_EDITION = 'Houve um erro ao editar o cadastro'
 }
@@ -55,7 +57,7 @@ export abstract class Form extends Unsubscrable {
    *
    * @param message Message to be showed
    */
-  emitSuccessMessage(message: string = Message.SUCCESSFUL_REGISTRY_EDITION) {
+  emitSuccessMessage(message: string) {
     this.alertService.open(message, AlertType.SUCCESS, 2500);
   }
 
@@ -64,7 +66,7 @@ export abstract class Form extends Unsubscrable {
    *
    * @param message Message to be showed
    */
-  emitErrorMessage(message: string = Message.UNSUCCESSFUL_REGISTRY_EDITION) {
+  emitErrorMessage(message: string) {
     this.alertService.open(message, AlertType.ERROR, 30000);
   }
 }

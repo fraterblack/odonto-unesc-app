@@ -8,6 +8,7 @@ import { User } from './../../../../core/models/User.model';
 import { AlertService } from './../../../../core/services/alert.service';
 import { AuthService } from './../../../../core/services/auth.service';
 import { UserService } from './../../../../core/services/user.service';
+import { Message } from './../../../../shared/common';
 
 @Component({
   selector: 'app-update-my-account',
@@ -54,7 +55,7 @@ export class UpdateMyAccountComponent extends Form implements OnInit {
           this.formGroup.get('password').reset();
           this.formGroup.get('repeat_password').reset();
 
-          this.emitSuccessMessage();
+          this.emitSuccessMessage(Message.SUCCESSFUL_REGISTRY_EDITION);
         },
         error => this.emitErrorMessage(error)
       );
