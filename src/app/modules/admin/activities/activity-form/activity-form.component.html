@@ -1,24 +1,87 @@
-<mat-card>
-    <form class="activity-form">
-        
-        <mat-card-title>Atividade</mat-card-title>
+<h3 class="odonto-page-title">
+  {{ !userId ? 'Nova Atividade' : 'Edição Atividade' }}
 
+  <a class="odonto-sm-button" color="accent" mat-button disableRipple="true" routerLink="/admin/activities">
+    <mat-icon>undo</mat-icon> Voltar
+  </a>
+</h3>
+
+<div class="odonto-form-container" [formGroup]="formGroup">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col col-md-6">
         <mat-form-field>
-            <input matInput placeholder="Título" type="text" formControlName="text" required />
+          <input matInput type="number" formControlName="code" required />
+          <mat-label>Código Atividade</mat-label>
+          <mat-error>Código é obrigatório</mat-error>
         </mat-form-field>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="col col-md-6">
         <mat-form-field>
-            <textarea matInput placeholder="Descrição"></textarea>
+          <input matInput type="text" formControlName="name" required />
+          <mat-label>Nome</mat-label>
+          <mat-error>Nome é obrigatório</mat-error>
         </mat-form-field>
+      </div>
+    </div>
 
-
-        <mat-form-field class="format-date">
-            <input matInput [matDatepicker]="picker" placeholder="Data/Hora Início">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+    <div class="row">
+      <div class="col col-md-6">
+        <mat-form-field>
+          <textarea matInput type="text" formControlName="description"></textarea>
+          <mat-label>Descrição</mat-label>
         </mat-form-field>
+      </div>
+    </div>
 
-        <mat-checkbox>Compartilhar</mat-checkbox>   
+    <div class="row">
+      <div class="col col-md-3">
+        <mat-form-field>
+          <input matInput [matDatepicker]="piker" formControlName="start_date">
+          <mat-label>Data/Hora Início</mat-label>
+          <mat-datepicker-toggle matSuffix [for]="piker"></mat-datepicker-toggle>
+          <mat-datepicker #piker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col col-md-3">
+        <mat-form-field>
+          <input matInput [matDatepicker]="piker2" formControlName="expiration_date">
+          <mat-label>Data/Hora Expiração</mat-label>
+          <mat-datepicker-toggle matSuffix [for]="piker2"></mat-datepicker-toggle>
+          <mat-datepicker #piker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
 
-    </form>
-</mat-card>
+    <div class="row">
+      <div class="col col-md-2">
+        <mat-checkbox formControlName="manager">Compartilhado</mat-checkbox>
+      </div>
+      <div class="col col-md-3">
+        <button mat-icon-button matTooltip="Compartilhar com outros Professores">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="odonto-active-field">
+      <mat-checkbox formControlName="active">Ativo</mat-checkbox>
+    </div>
+
+    <div class="odonto-form-actions">
+      <button matButton type="button" mat-raised-button color="primary" (click)="onSave()">
+        Salvar
+      </button>
+      <button matButton type="button" mat-raised-button color="primary" (click)="onSave(true)">
+        Salvar e Fechar
+      </button>
+      <button matButton type="button" mat-raised-button color="basic" (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
