@@ -1,5 +1,5 @@
 <h3 class="odonto-page-title">
-  {{ !userId ? 'Novo Usuário' : 'Edição Usuário' }}
+  {{ !modelId ? 'Novo Usuário' : 'Edição Usuário' }}
 
   <a class="odonto-sm-button" color="accent" mat-button disableRipple="true" routerLink="/admin/users">
     <mat-icon>undo</mat-icon> Voltar
@@ -61,10 +61,10 @@
             matInput
             type="password"
             formControlName="password"
-            [required]="!userId"
+            [required]="!modelId"
           />
           <mat-label>Senha</mat-label>
-          <mat-hint *ngIf="userId">Informe uma nova senha caso deseje alterá-la</mat-hint>
+          <mat-hint *ngIf="modelId">Informe uma nova senha caso deseje alterá-la</mat-hint>
           <mat-error>Senha é obrigatório</mat-error>
         </mat-form-field>
       </div>
@@ -79,7 +79,7 @@
             type="password"
             formControlName="repeat_password"
             pattern="{{ formGroup.get('password').value }}"
-            [required]="!userId"
+            [required]="!modelId"
           />
           <mat-label>Confirme a Senha</mat-label>
           <mat-error>Senha e confirmação de senha não são iguais</mat-error>
