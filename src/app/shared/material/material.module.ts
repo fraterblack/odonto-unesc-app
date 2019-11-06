@@ -22,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 // import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 // import { MatSliderModule } from '@angular/material/';
@@ -55,7 +56,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     // MatNativeDateModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    NgxMaterialTimepickerModule
   ],
   exports: [
     MatButtonModule,
@@ -84,7 +86,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     // MatNativeDateModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [ ]
 })

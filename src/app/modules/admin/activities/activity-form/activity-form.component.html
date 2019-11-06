@@ -1,10 +1,11 @@
 <h3 class="odonto-page-title">
-  {{ !userId ? 'Nova Atividade' : 'Edição Atividade' }}
+  {{ !modelId ? 'Nova Atividade' : 'Edição Atividade' }}
 
   <a class="odonto-sm-button" color="accent" mat-button disableRipple="true" routerLink="/admin/activities">
     <mat-icon>undo</mat-icon> Voltar
   </a>
 </h3>
+
 
 <div class="odonto-form-container" [formGroup]="formGroup">
   <div class="container-fluid">
@@ -12,9 +13,9 @@
     <div class="row">
       <div class="col col-md-6">
         <mat-form-field>
-          <input matInput type="number" formControlName="code" required />
-          <mat-label>Código Atividade</mat-label>
-          <mat-error>Código é obrigatório</mat-error>
+          <input matInput type="text" formControlName="name" required />
+          <mat-label>Nome</mat-label>
+          <mat-error>Nome é obrigatório</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -22,9 +23,9 @@
     <div class="row">
       <div class="col col-md-6">
         <mat-form-field>
-          <input matInput type="text" formControlName="name" required />
-          <mat-label>Nome</mat-label>
-          <mat-error>Nome é obrigatório</mat-error>
+          <input matInput type="number" formControlName="code" required />
+          <mat-label>Código Atividade</mat-label>
+          <mat-error>Código é obrigatório</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -41,18 +42,36 @@
     <div class="row">
       <div class="col col-md-3">
         <mat-form-field>
-          <input matInput [matDatepicker]="piker" formControlName="start_date">
-          <mat-label>Data/Hora Início</mat-label>
-          <mat-datepicker-toggle matSuffix [for]="piker"></mat-datepicker-toggle>
-          <mat-datepicker #piker></mat-datepicker>
+          <input matInput [matDatepicker]="startDate" formControlName="start_date">
+          <mat-label>Data Início</mat-label>
+          <mat-datepicker #startDate></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="col col-md-3">
         <mat-form-field>
-          <input matInput [matDatepicker]="piker2" formControlName="expiration_date">
-          <mat-label>Data/Hora Expiração</mat-label>
-          <mat-datepicker-toggle matSuffix [for]="piker2"></mat-datepicker-toggle>
-          <mat-datepicker #piker2></mat-datepicker>
+          <input matInput [ngxTimepicker]="startTime" [format]="24" formControlName="start_time" />
+          <mat-label>Hora Início</mat-label>
+          <ngx-material-timepicker-toggle matSuffix [for]="startTime"></ngx-material-timepicker-toggle>
+          <ngx-material-timepicker #startTime></ngx-material-timepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-3">
+        <mat-form-field>
+          <input matInput [matDatepicker]="expirationDate" formControlName="expiration_date">
+          <mat-label>Data Expiração</mat-label>
+          <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
+          <mat-datepicker #expirationDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col col-md-3">
+        <mat-form-field>
+          <input matInput [ngxTimepicker]="expirationTime" [format]="24" formControlName="expiration_time" />
+          <mat-label>Hora Expiração</mat-label>
+          <ngx-material-timepicker-toggle matSuffix [for]="expirationTime"></ngx-material-timepicker-toggle>
+          <ngx-material-timepicker #expirationTime></ngx-material-timepicker>
         </mat-form-field>
       </div>
     </div>
