@@ -97,4 +97,13 @@ export abstract class GridComponent extends Unsubscrable {
    * @param state Grid state
    */
   abstract onGridStateChange(state: GridState): void;
+
+  getQueryParamsFromGrid(grid: Grid): GridState {
+    return {
+      sort: grid.sorting.default.column,
+      order: grid.sorting.default.direction,
+      page: grid.paging.page,
+      limit: grid.paging.limit
+    };
+  }
 }
