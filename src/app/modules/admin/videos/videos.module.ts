@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from './../../../shared/shared.module';
 import { VideoFormComponent } from './video-form/video-form.component';
@@ -16,6 +16,7 @@ import { VideosRoutingModule } from './videos-routing.module';
     CommonModule,
     VideosRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule
   ]
 })

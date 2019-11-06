@@ -7,7 +7,6 @@ import { UserFormComponent } from './user-form/user-form.component';
 import { UsersGridComponent } from './users-grid/users-grid.component';
 import { UsersRoutingModule } from './users-routing.module';
 
-
 @NgModule({
   declarations: [
     UsersGridComponent,
