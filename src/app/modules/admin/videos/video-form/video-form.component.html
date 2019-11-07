@@ -19,29 +19,30 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col col-md-6">
+        <mat-form-field>
+          <textarea matInput formControlName="description"></textarea>
+          <mat-label>Descrição</mat-label>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <div class="odonto-active-field">
+        <mat-checkbox formControlName="active">Ativo</mat-checkbox>
+    </div>
 
     <div class="odonto-form-actions">
-        <button
-          matButton
-          type="button"
-          mat-raised-button color="primary"
-          (click)="onSave()">
-          Salvar
-        </button>
-        <button
-          matButton
-          type="button"
-          mat-raised-button color="primary"
-          (click)="onSave(true)">
-          Salvar e Fechar
-        </button>
-        <button
-          matButton
-          type="button"
-          mat-raised-button color="basic"
-          (click)="onCancel()">
-          Cancelar
-        </button>
+      <button matButton type="button" mat-raised-button color="primary" (click)="onSave()">
+        Salvar
+      </button>
+      <button matButton type="button" mat-raised-button color="primary" (click)="onSave(true)">
+        Salvar e Fechar
+      </button>
+      <button matButton type="button" mat-raised-button color="basic" (click)="onCancel()">
+        Cancelar
+      </button>
 
+    </div>
   </div>
-</div>
