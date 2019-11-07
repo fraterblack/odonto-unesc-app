@@ -1,6 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { take, takeUntil } from 'rxjs/operators';
 
 import { GRID_PAGINATION_LIMIT, GridComponent, GridState } from './../../../../shared/components/grid/grid';
 
@@ -75,38 +74,38 @@ export class VideosGridComponent extends GridComponent implements OnInit {
     this.busy = true;
 
     // Load data for the first time
-    this.service.queryVideos({
-      sort: this.grid.sorting.default.column,
-      order: this.grid.sorting.default.direction,
-      page: this.grid.paging.page,
-      limit: this.grid.paging.limit
-    })
-    .pipe(
-      take(1),
-      takeUntil(this.ngUnsubscribe)
-    )
-    .subscribe((resp) => {
-      this.busy = false;
+    // this.service.queryVideos({
+    //   sort: this.grid.sorting.default.column,
+    //   order: this.grid.sorting.default.direction,
+    //   page: this.grid.paging.page,
+    //   limit: this.grid.paging.limit
+    // })
+    // .pipe(
+    //   take(1),
+    //   takeUntil(this.ngUnsubscribe)
+    // )
+    // .subscribe((resp) => {
+    //   this.busy = false;
 
-      this.data.next(resp);
-      this.data.asObservable();
-    });
+    //   this.data.next(resp);
+    //   this.data.asObservable();
+    // });
   }
 
   onGridStateChange(state: GridState) {
     this.busy = true;
 
-    this.service.queryVideos(state)
-      .pipe(
-        take(1),
-        takeUntil(this.ngUnsubscribe)
-      )
-      .subscribe((resp) => {
-        this.busy = false;
+    // this.service.queryVideos(state)
+    //   .pipe(
+    //     take(1),
+    //     takeUntil(this.ngUnsubscribe)
+    //   )
+    //   .subscribe((resp) => {
+    //     this.busy = false;
 
-        this.data.next(resp);
-        this.data.asObservable();
-      });
+    //     this.data.next(resp);
+    //     this.data.asObservable();
+    //   });
   }
 
   onAction(action: string, index: number, id: number) {

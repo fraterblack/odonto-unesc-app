@@ -23,7 +23,6 @@ export class VideoFormComponent extends Form implements OnInit {
     description: new FormControl(),
     archive: new FormControl(),
     shared: new FormControl(),
-    teacher: new FormControl(),
     active: new FormControl(true)
   });
 
