@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -17,6 +17,11 @@ import { FormHelper } from './../../../../shared/form-helper';
   styleUrls: ['./video-form.component.scss']
 })
 export class VideoFormComponent extends Form implements OnInit {
+
+  @ViewChild('fileInput', { static: true }) fileInput;
+
+  file: File | null = null;
+  defaultName: 'aa';
 
   formGroup: FormGroup = new FormGroup({
     title: new FormControl(),
@@ -48,7 +53,21 @@ export class VideoFormComponent extends Form implements OnInit {
     }
 
     const video = new Video();
+
+    video.archive = this.file.name;
+
+    console.log(video);
+
     video.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup));
+
+
+
+
+    // this.formGroup.setValue({
+    //   archive: this.file.name
+    // });
+
+    // .value.set(this.file.name);
 
     let action$: Observable<any>;
 
@@ -56,6 +75,7 @@ export class VideoFormComponent extends Form implements OnInit {
       action$ = this.videoService.put(this.modelId, video);
     } else {
       action$ = this.videoService.post(video);
+
     }
 
     action$
@@ -65,14 +85,14 @@ export class VideoFormComponent extends Form implements OnInit {
 
           this.emitSuccessMessage(
             this.modelId
-            ? Message.SUCCESSFUL_REGISTRY_EDITION
-            : Message.SUCCESSFUL_REGISTRY_INSERTION);
+              ? Message.SUCCESSFUL_REGISTRY_EDITION
+              : Message.SUCCESSFUL_REGISTRY_INSERTION);
 
           // When save & close
           if (close) {
-            this.router.navigate([`/admin/videos`]);
+            this.router.navigate([`/admin/video`]);
 
-          // When save only
+            // When save only
           } else {
             // When is a new registry, redirect to update
             if (!this.modelId) {
@@ -86,6 +106,17 @@ export class VideoFormComponent extends Form implements OnInit {
 
   onCancel() {
     this.router.navigate([`/admin/videos`]);
+  }
+
+  onClickFileInputButton(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  onChangeFileInput(): void {
+    const files: { [key: string]: File } = this.fileInput.nativeElement.files;
+    this.file = files[0];
+
+    console.log(this.file)
   }
 
 }
