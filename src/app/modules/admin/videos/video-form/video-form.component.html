@@ -28,9 +28,41 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col col-md-5">
+        <mat-form-field>
+          <input matInput type="text" *ngIf="!file; else fileName hidden " placeholder="Selecione essa merda de vídeo" formControlName="archive" readonly>
+         
+          <ng-template #fileName>
+              <input matInput type="text" formControlName="archive" [(value)]="file.name" readonly/>
+          </ng-template>
+
+        </mat-form-field>
+      </div>
+      <div class="col col-md-1">
+        <input hidden type="file" #fileInput accept="video/*" (change)="onChangeFileInput()" />
+        <button mat-raised-button color="primary" (click)="onClickFileInputButton()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+      </div>
+    </div>
+
+
+
+
+    <div class="row">
+      <div class="col col-md-2">
+        <mat-checkbox formControlName="shared">Compartilhado</mat-checkbox>
+      </div>
+      <div class="col col-md-3">
+        <button mat-icon-button matTooltip="Compartilhar com outros Professores">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </div>
+    </div>
 
     <div class="odonto-active-field">
-        <mat-checkbox formControlName="active">Ativo</mat-checkbox>
+      <mat-checkbox formControlName="active">Ativo</mat-checkbox>
     </div>
 
     <div class="odonto-form-actions">
