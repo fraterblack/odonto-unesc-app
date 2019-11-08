@@ -34,13 +34,15 @@ export class UsersGridComponent extends GridComponent implements OnInit {
           name: 'manager',
           header: 'Gerente',
           binding: this.manager,
-          sortActive: true
+          sortActive: true,
+          sortId: 'manager'
         },
         {
           name: 'active',
           header: 'Ativo',
           binding: this.active,
-          sortActive: true
+          sortActive: true,
+          sortId: 'active'
         },
         {
           name: 'actions',
@@ -67,28 +69,26 @@ export class UsersGridComponent extends GridComponent implements OnInit {
       }
     };
 
-    this.busy = true;
-
     // Load data for the first time
-    this.userService.query({
-      sort: this.grid.sorting.default.column,
-      order: this.grid.sorting.default.direction,
-      page: this.grid.paging.page,
-      limit: this.grid.paging.limit
-    })
-    .pipe(
-      take(1),
-      takeUntil(this.ngUnsubscribe)
-    )
-    .subscribe((resp) => {
-      this.busy = false;
-
-      this.data.next(resp);
-      this.data.asObservable();
-    });
+    this.updateGridData(this.getQueryParamsFromGrid(this.grid));
   }
 
   onGridStateChange(state: GridState) {
+    this.updateGridData(state);
+  }
+
+  onAction(action: string, index: number, id: number) {
+    switch (action) {
+      case 'new':
+        this.router.navigate([`/admin/users/create`]);
+        break;
+      case 'edit':
+        this.router.navigate([`/admin/users/update/${id}`]);
+        break;
+    }
+  }
+
+  private updateGridData(state: GridState): void {
     this.busy = true;
 
     this.userService.query(state)
@@ -102,16 +102,5 @@ export class UsersGridComponent extends GridComponent implements OnInit {
         this.data.next(resp);
         this.data.asObservable();
       });
-  }
-
-  onAction(action: string, index: number, id: number) {
-    switch (action) {
-      case 'new':
-        this.router.navigate([`/admin/users/create`]);
-        break;
-      case 'edit':
-        this.router.navigate([`/admin/users/update/${id}`]);
-        break;
-    }
   }
 }

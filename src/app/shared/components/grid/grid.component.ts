@@ -48,6 +48,15 @@ export class GridComponent implements AfterViewInit, AfterContentInit, OnDestroy
   filterKeyUp = new Subject<any>();
 
   ngAfterContentInit() {
+    // All sortable grid columns that contains templateRef binding elements, must set sortId
+    this.grid.columns.forEach((item) => {
+      if (item.sortActive && !item.sortId && this.isTemplateRefBinding(item.binding)) {
+        throw new Error(
+          `For sortable "${item.name}" column with templateRef binding, you need set sortId parameter.`
+        );
+      }
+    });
+
     // Set displayed columns from grid column names
     this.displayedColumns = this.grid.columns.map((item) => item.name);
 
@@ -89,12 +98,14 @@ export class GridComponent implements AfterViewInit, AfterContentInit, OnDestroy
     let order: string = this.sort.direction;
 
     // Additional sorting parameters
-    const additional = this.grid.sorting.additional
-      .filter((item) => item.column !== this.sort.active);
+    if (this.grid.sorting.additional) {
+      const additional = this.grid.sorting.additional
+        .filter((item) => item.column !== this.sort.active);
 
-    if (additional.length) {
-      sort += `,${additional.map((item) => item.column).join(',')}`;
-      order += `,${additional.map((item) => item.direction).join(',')}`;
+      if (additional.length) {
+        sort += `,${additional.map((item) => item.column).join(',')}`;
+        order += `,${additional.map((item) => item.direction).join(',')}`;
+      }
     }
 
     const state: GridState = {
