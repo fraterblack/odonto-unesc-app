@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/core/models/User.model';
-import { Form } from 'src/app/shared/common';
+import { FormComponent } from 'src/app/shared/common';
 
 import { AlertService } from './../../../../core/services/alert.service';
 import { UserService } from './../../../../core/services/user.service';
@@ -16,7 +16,7 @@ import { FormHelper } from './../../../../shared/form-helper';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent extends Form implements OnInit {
+export class UserFormComponent extends FormComponent implements OnInit {
 
   formGroup: FormGroup = new FormGroup({
     code: new FormControl(),
