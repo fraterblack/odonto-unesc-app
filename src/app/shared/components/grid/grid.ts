@@ -1,9 +1,6 @@
 import { PipeTransform, TemplateRef } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { SortDirection } from '@angular/material/sort';
-import { Subject } from 'rxjs';
-
-import { Unsubscrable } from '../../common';
 
 /*
 * Constants
@@ -73,37 +70,4 @@ export class GridPaginatorIntl extends MatPaginatorIntl {
   nextPageLabel = 'Próxima página';
   firstPageLabel = 'Primeira página';
   lastPageLabel = 'Última página';
-}
-
-export abstract class GridComponent extends Unsubscrable {
-  /**
-   * Controls busy mode
-   */
-  busy = false;
-
-  /**
-   * Grid settings
-   */
-  grid: Grid;
-
-  /**
-   * Grid data returned from query endpoint
-   */
-  data: Subject<GridResponse> = new Subject();
-
-  /**
-   * Get data from new grid state
-   *
-   * @param state Grid state
-   */
-  abstract onGridStateChange(state: GridState): void;
-
-  getQueryParamsFromGrid(grid: Grid): GridState {
-    return {
-      sort: grid.sorting.default.column,
-      order: grid.sorting.default.direction,
-      page: grid.paging.page,
-      limit: grid.paging.limit
-    };
-  }
 }

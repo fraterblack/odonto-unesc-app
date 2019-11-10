@@ -1,9 +1,12 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { take, takeUntil } from 'rxjs/operators';
+import { GridComponent } from 'src/app/shared/common';
+import { mapToGridResponse } from 'src/app/shared/rxjs-operators';
 
+import { AlertService } from './../../../../core/services/alert.service';
 import { UserService } from './../../../../core/services/user.service';
-import { GRID_PAGINATION_LIMIT, GridComponent, GridState } from './../../../../shared/components/grid/grid';
+import { GRID_PAGINATION_LIMIT, GridState } from './../../../../shared/components/grid/grid';
 
 @Component({
   selector: 'app-users-grid',
@@ -16,8 +19,10 @@ export class UsersGridComponent extends GridComponent implements OnInit {
   @ViewChild('manager', { static: true }) manager: TemplateRef<any>;
   @ViewChild('active', { static: true }) active: TemplateRef<any>;
 
-  constructor(private userService: UserService, private router: Router) {
-    super();
+  private gridState: GridState;
+
+  constructor(private userService: UserService, alertService: AlertService, private router: Router) {
+    super(alertService);
   }
 
   ngOnInit() {
@@ -35,14 +40,16 @@ export class UsersGridComponent extends GridComponent implements OnInit {
           header: 'Gerente',
           binding: this.manager,
           sortActive: true,
-          sortId: 'manager'
+          sortId: 'manager',
+          headerCssClass: 'odonto-grid-check-column',
         },
         {
           name: 'active',
           header: 'Ativo',
           binding: this.active,
           sortActive: true,
-          sortId: 'active'
+          sortId: 'active',
+          headerCssClass: 'odonto-grid-check-column',
         },
         {
           name: 'actions',
@@ -70,10 +77,13 @@ export class UsersGridComponent extends GridComponent implements OnInit {
     };
 
     // Load data for the first time
-    this.updateGridData(this.getQueryParamsFromGrid(this.grid));
+    this.gridState = this.getQueryParamsFromGrid(this.grid);
+    this.updateGridData(this.gridState);
   }
 
   onGridStateChange(state: GridState) {
+    this.gridState = state;
+
     this.updateGridData(state);
   }
 
@@ -91,7 +101,10 @@ export class UsersGridComponent extends GridComponent implements OnInit {
   private updateGridData(state: GridState): void {
     this.busy = true;
 
-    this.userService.query(state)
+    const params = this.parseGridStateToHttpParams(state);
+
+    this.userService.query(params)
+      .pipe(mapToGridResponse())
       .pipe(
         take(1),
         takeUntil(this.ngUnsubscribe)

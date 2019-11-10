@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { Form } from 'src/app/shared/common';
+import { FormComponent } from 'src/app/shared/common';
 
 import { FormHelper } from '../../../../shared/form-helper';
 import { User } from './../../../../core/models/User.model';
@@ -15,7 +15,7 @@ import { Message } from './../../../../shared/common';
   templateUrl: './update-my-account.component.html',
   styleUrls: ['./update-my-account.component.scss']
 })
-export class UpdateMyAccountComponent extends Form implements OnInit {
+export class UpdateMyAccountComponent extends FormComponent implements OnInit {
 
   formGroup: FormGroup = new FormGroup({
     code: new FormControl(),

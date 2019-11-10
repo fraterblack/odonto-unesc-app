@@ -1,8 +1,8 @@
+import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { mapToGridResponse } from 'src/app/shared/rxjs-operators';
 
-import { GridResponse, GridState } from './../../shared/components/grid/grid';
+import { GridResponse } from './../../shared/components/grid/grid';
 import { User } from './../models/User.model';
 import { ApiService } from './api.service';
 import { Service } from './service';
@@ -28,8 +28,7 @@ export class UserService extends Service {
     return this.apiService.put(`/teacher/${id}`, user);
   }
 
-  query(args: GridState): Observable<GridResponse> {
-    return this.apiService.get(`/teacher`, this.parseArgsToHttpParams(args))
-      .pipe(mapToGridResponse());
+  query(params?: HttpParams): Observable<GridResponse> {
+    return this.apiService.get(`/teacher`, params);
   }
 }
