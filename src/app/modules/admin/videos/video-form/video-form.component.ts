@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Video } from 'src/app/core/models/Video.model';
-import { Form } from 'src/app/shared/common';
+import { FormComponent } from 'src/app/shared/common';
 import { filterResponse, uploadProgress } from 'src/app/shared/rxjs-operators';
 
 import { AlertService } from './../../../../core/services/alert.service';
@@ -18,7 +18,7 @@ import { FormHelper } from './../../../../shared/form-helper';
   templateUrl: './video-form.component.html',
   styleUrls: ['./video-form.component.scss']
 })
-export class VideoFormComponent extends Form implements OnInit {
+export class VideoFormComponent extends FormComponent implements OnInit {
 
   @ViewChild('fileInput', { static: true }) fileInput;
 
