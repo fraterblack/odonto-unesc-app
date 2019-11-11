@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -42,6 +43,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatCardModule,
     MatListModule,
     MatIconModule,
+    MatProgressBarModule,
     // MatTooltipModule,
     MatSnackBarModule,
     // MatSlideToggleModule,
@@ -70,6 +72,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatCardModule,
     MatListModule,
     MatIconModule,
+    MatProgressBarModule,
     // MatTooltipModule,
     MatSnackBarModule,
     // MatSlideToggleModule,
@@ -84,7 +87,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatSortModule
   ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
   ]
 })
-export class MaterialModule {}
+export class MaterialModule { }
