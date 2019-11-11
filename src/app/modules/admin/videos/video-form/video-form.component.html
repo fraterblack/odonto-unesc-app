@@ -8,7 +8,6 @@
 
 <div class="odonto-form-container" [formGroup]="formGroup">
   <div class="container-fluid">
-
     <div class="row">
       <div class="col col-md-6">
         <mat-form-field>
@@ -22,7 +21,8 @@
     <div class="row">
       <div class="col col-md-6">
         <mat-form-field>
-          <textarea matInput formControlName="description"></textarea>
+          <textarea matInput formControlName="description">
+          </textarea>
           <mat-label>Descrição</mat-label>
         </mat-form-field>
       </div>
@@ -31,24 +31,28 @@
     <div class="row">
       <div class="col col-md-5">
         <mat-form-field>
-          <input matInput type="text" *ngIf="!file; else fileName hidden " placeholder="Selecione essa merda de vídeo" formControlName="archive" readonly>
-         
+          <input matInput type="text" *ngIf="!file; else fileName hidden "
+            [value]="!file ? 'Selecione o arquivo' : file.name" readonly>
+          <!-- <mat-label *ngIf="!file">Selecione essa merda de vídeo</mat-label> -->
+          <!-- <mat-error >Vídeo é obrigatório</mat-error> -->
           <ng-template #fileName>
-              <input matInput type="text" formControlName="archive" [(value)]="file.name" readonly/>
+            <input matInput type="text" [value]="file.name" formControlName="archive" readonly />
           </ng-template>
-
         </mat-form-field>
       </div>
       <div class="col col-md-1">
-        <input hidden type="file" #fileInput accept="video/*" (change)="onChangeFileInput()" />
+        <input #fileInput hidden type="file" accept="video/*" (change)="onChangeFileInput()" />
         <button mat-raised-button color="primary" (click)="onClickFileInputButton()">
           <mat-icon>attach_file</mat-icon>
         </button>
       </div>
     </div>
 
-
-
+    <div class="row">
+      <div class="col col-md-6">
+        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+      </div>
+    </div>
 
     <div class="row">
       <div class="col col-md-2">

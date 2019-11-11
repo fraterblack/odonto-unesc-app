@@ -5,8 +5,10 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Video } from 'src/app/core/models/Video.model';
 import { Form } from 'src/app/shared/common';
+import { filterResponse, uploadProgress } from 'src/app/shared/rxjs-operators';
 
 import { AlertService } from './../../../../core/services/alert.service';
+import { UploadFileService } from './../../../../core/services/upload-file.service';
 import { VideoService } from './../../../../core/services/video.service';
 import { Message } from './../../../../shared/common';
 import { FormHelper } from './../../../../shared/form-helper';
@@ -21,19 +23,25 @@ export class VideoFormComponent extends Form implements OnInit {
   @ViewChild('fileInput', { static: true }) fileInput;
 
   file: File | null = null;
-  defaultName: 'aa';
+  hashVideo: string;
+  progress = 0;
 
   formGroup: FormGroup = new FormGroup({
     title: new FormControl(),
     description: new FormControl(),
     archive: new FormControl(),
-    shared: new FormControl(),
+    shared: new FormControl(false),
     active: new FormControl(true)
   });
 
   modelId: number;
 
-  constructor(alertService: AlertService, private videoService: VideoService, private router: Router, route: ActivatedRoute) {
+  constructor(
+    alertService: AlertService,
+    private videoService: VideoService,
+    private uploadFileService: UploadFileService,
+    private router: Router, route: ActivatedRoute
+  ) {
     super(alertService);
 
     this.modelId = route.snapshot.params.id;
@@ -54,20 +62,11 @@ export class VideoFormComponent extends Form implements OnInit {
 
     const video = new Video();
 
-    video.archive = this.file.name;
-
-    console.log(video);
+    this.onUpload();
 
     video.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup));
 
-
-
-
-    // this.formGroup.setValue({
-    //   archive: this.file.name
-    // });
-
-    // .value.set(this.file.name);
+    video.archive = this.hashVideo;
 
     let action$: Observable<any>;
 
@@ -75,7 +74,6 @@ export class VideoFormComponent extends Form implements OnInit {
       action$ = this.videoService.put(this.modelId, video);
     } else {
       action$ = this.videoService.post(video);
-
     }
 
     action$
@@ -90,17 +88,37 @@ export class VideoFormComponent extends Form implements OnInit {
 
           // When save & close
           if (close) {
-            this.router.navigate([`/admin/video`]);
+            this.router.navigate([`/admin/videos`]);
 
             // When save only
           } else {
             // When is a new registry, redirect to update
             if (!this.modelId) {
-              this.router.navigate([`/admin/video/update/${res.id}`]);
+              this.router.navigate([`/admin/videos/update/${res.id}`]);
             }
           }
         },
         error => this.emitErrorMessage(error)
+      );
+  }
+
+  async onUpload() {
+    let actionUpload$: Observable<any>;
+
+    if (this.file) {
+      actionUpload$ = this.uploadFileService.post(this.file);
+    }
+
+    await actionUpload$
+      .pipe(
+        takeUntil(this.ngUnsubscribe),
+        uploadProgress(progress => {
+          console.log(progress)
+          this.progress = progress;
+        }),
+        filterResponse()
+      )
+      .subscribe(res => console.log(res, 'Upload Concluído')
       );
   }
 
@@ -115,8 +133,6 @@ export class VideoFormComponent extends Form implements OnInit {
   onChangeFileInput(): void {
     const files: { [key: string]: File } = this.fileInput.nativeElement.files;
     this.file = files[0];
-
-    console.log(this.file)
+    this.progress = 0;
   }
-
 }
