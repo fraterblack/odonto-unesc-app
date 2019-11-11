@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { GridComponent } from './components/grid/grid.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { RelatedItemsSelectorComponent } from './components/related-items-selector/related-items-selector.component';
 import { MaterialModule } from './material/material.module';
 import { DynamicPipe } from './pipes/dynamic.pipe';
 
@@ -12,6 +13,7 @@ import { DynamicPipe } from './pipes/dynamic.pipe';
     NotificationsComponent,
     GridComponent,
     DynamicPipe,
+    RelatedItemsSelectorComponent,
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { DynamicPipe } from './pipes/dynamic.pipe';
     MaterialModule,
     NotificationsComponent,
     GridComponent,
-    DynamicPipe
+    DynamicPipe,
+    RelatedItemsSelectorComponent
   ]
 })
 export class SharedModule {}

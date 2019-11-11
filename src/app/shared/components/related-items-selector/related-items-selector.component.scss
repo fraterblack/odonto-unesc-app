@@ -1,0 +1,72 @@
+@import '../../../../styles/app-styles-support.scss';
+
+.component-container {
+  margin: 0 0 30px -15px;
+  padding: 15px;
+  max-width: 850px;
+  background: $gray-lighter-color;
+  border: 1px solid $gray-color;
+
+  .mat-table {
+    width: 100%;
+    margin-top: 20px;
+    background: $gray-lighter-color;
+
+    &.empty-items {
+      display: none;
+    }
+
+    &.single-item {
+      .mat-column-position {
+        display: none;
+      }
+
+      .mat-column-title {
+        padding-left: 20px;
+      }
+    }
+
+    .mat-row:last-child {
+      .mat-cell {
+        border-bottom: none;
+      }
+    }
+
+    .mat-header-row {
+      display: none !important;
+    }
+
+    .mat-column-position {
+      width: 50px;
+      padding: 0 10px;
+    }
+
+    .mat-column-actions {
+      width: 30px;
+    }
+  }
+
+  .sort-button {
+    height: 20px;
+    line-height: 20px;
+    border-radius: 0;
+
+    &-up {
+      line-height: 22px;
+
+      .mat-icon {
+        line-height: 22px;
+      }
+    }
+
+    &-down {
+      line-height: 16px;
+
+      .mat-icon {
+        line-height: 16px;
+      }
+    }
+
+  }
+}
+
