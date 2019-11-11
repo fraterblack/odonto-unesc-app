@@ -1,0 +1,42 @@
+<div class="component-container">
+  <div class="actions-container">
+    <button mat-raised-button color="accent" (click)="onActionClicked('new')">
+      <mat-icon>add</mat-icon> {{ newItemLabel }}
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" [ngClass]="{ 'single-item': dataSource && dataSource.length == 1, 'empty-items': dataSource && dataSource.length == 0 }">
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef>Posição</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <button *ngIf="i > 0" mat-icon-button class="sort-button sort-button-up" (click)="onActionClicked('sortUp', row)" title="Mover para baixo">
+          <mat-icon>arrow_drop_up</mat-icon>
+        </button>
+        <button *ngIf="(i + 1) < dataSource.length"  mat-icon-button class="sort-button sort-button-down" (click)="onActionClicked('sortDown', row)" title="Mover para cima">
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Título</th>
+      <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Ações</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <ng-container
+              [ngTemplateOutlet]="actions"
+              [ngTemplateOutletContext]="{ row: row, index: i }">
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
