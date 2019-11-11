@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { take, takeUntil } from 'rxjs/operators';
@@ -11,6 +10,7 @@ import { AuthService } from './../../../../core/services/auth.service';
 import { VideoService } from './../../../../core/services/video.service';
 import { Message } from './../../../../shared/common';
 import { GRID_PAGINATION_LIMIT, GridState } from './../../../../shared/components/grid/grid';
+
 
 @Component({
   selector: 'app-videos-grid',
