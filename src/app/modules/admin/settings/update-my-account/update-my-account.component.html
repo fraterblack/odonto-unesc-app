@@ -79,6 +79,29 @@
       </div>
     </div>
 
+    <app-related-items-selector
+      newItemLabel="Novo Vídeo"
+      [data]="relatedData"
+      [actions]="actions"
+      (action)="onAction($event)"></app-related-items-selector>
+
+    <!-- Actions -->
+    <ng-template #actions let-row="row" let-index="index">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="onAction({ action: 'view', element: row })">
+          <mat-icon>search</mat-icon>
+          <span>Visualizar</span>
+        </button>
+        <button mat-menu-item (click)="onAction({ action: 'delete', element: row })">
+          <mat-icon>delete</mat-icon>
+          <span>Remover</span>
+        </button>
+      </mat-menu>
+    </ng-template>
+
     <div class="odonto-form-actions">
       <button
         matButton
