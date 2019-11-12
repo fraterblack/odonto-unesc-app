@@ -59,7 +59,6 @@ export class VideoFormComponent extends FormComponent implements OnInit {
           this.isUploadVideo = false;
           // TODO: Aguardar BE retornar o nome correto do vídeo.
           this.archive = res.archive;
-          console.log(res);
         });
     }
   }
