@@ -65,10 +65,10 @@
     </div>
 
     <div class="odonto-form-actions">
-      <button matButton type="button" mat-raised-button color="primary" (click)="onSave()">
+      <button [disabled]="isUploadVideo" matButton type="button" mat-raised-button color="primary" (click)="onSave()">
         Salvar
       </button>
-      <button matButton type="button" mat-raised-button color="primary" (click)="onSave(true)">
+      <button [disabled]="isUploadVideo" matButton type="button" mat-raised-button color="primary" (click)="onSave(true)">
         Salvar e Fechar
       </button>
       <button matButton type="button" mat-raised-button color="basic" (click)="onCancel()">
