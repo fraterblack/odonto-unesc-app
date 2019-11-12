@@ -12,7 +12,6 @@ import { VideoService } from './../../../../core/services/video.service';
 import { Message } from './../../../../shared/common';
 import { GRID_PAGINATION_LIMIT, GridState } from './../../../../shared/components/grid/grid';
 
-
 @Component({
   selector: 'app-videos-grid',
   templateUrl: './videos-grid.component.html',

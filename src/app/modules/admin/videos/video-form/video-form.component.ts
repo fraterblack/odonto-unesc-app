@@ -54,11 +54,12 @@ export class VideoFormComponent extends FormComponent implements OnInit {
       this.videoService.get(this.modelId)
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((res) => {
-          FormHelper.setFormGroupValues(this.formGroup, res, ['archive']);
+          FormHelper.setFormGroupValues(this.formGroup, res);
 
+          this.isUploadVideo = false;
           //TODO: Aguardar BE retornar o nome correto do vídeo.
-          // this.archive = res.archive;
-          this.formGroup.patchValue(res);
+          this.archive = res.archive;
+          console.log(res);
         });
     }
   }
@@ -69,7 +70,7 @@ export class VideoFormComponent extends FormComponent implements OnInit {
     }
 
     if (this.archive) {
-      return this.save();
+      return this.save(close);
     }
 
     this.isUploadVideo = true;
@@ -78,7 +79,7 @@ export class VideoFormComponent extends FormComponent implements OnInit {
       .subscribe(res => {
         this.archive = res.message;
 
-        this.save();
+        this.save(close);
       },
         (error) => {
           this.isUploadVideo = false;
@@ -88,7 +89,7 @@ export class VideoFormComponent extends FormComponent implements OnInit {
       );
   }
 
-  private save() {
+  private save(close?: boolean) {
     const video = new Video();
     video.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup));
 
@@ -131,7 +132,7 @@ export class VideoFormComponent extends FormComponent implements OnInit {
   private upload(): Observable<any> {
     if (!this.file) {
 
-      this.emitSuccessMessage(Message.CANCEL_SELECTED_FILE);
+      this.emitErrorMessage('Por favor, selecione um arquivo!');
       return;
     }
 
