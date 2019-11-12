@@ -3,14 +3,13 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Video } from 'src/app/core/models/Video.model';
-import { FormComponent } from 'src/app/shared/common';
 import { filterResponse, uploadProgress } from 'src/app/shared/rxjs-operators';
 
+import { Video } from './../../../../core/models/Video.model';
 import { AlertService } from './../../../../core/services/alert.service';
 import { UploadFileService } from './../../../../core/services/upload-file.service';
 import { VideoService } from './../../../../core/services/video.service';
-import { Message } from './../../../../shared/common';
+import { FormComponent, Message } from './../../../../shared/common';
 import { FormHelper } from './../../../../shared/form-helper';
 
 @Component({
@@ -22,9 +21,11 @@ export class VideoFormComponent extends FormComponent implements OnInit {
 
   @ViewChild('fileInput', { static: true }) fileInput;
 
-  file: File | null = null;
-  hashVideo: string;
-  progress = 0;
+  progressUploadVideo = 0;
+  isUploadVideo = false;
+
+  private file: File = null;
+  private archive: string;
 
   formGroup: FormGroup = new FormGroup({
     title: new FormControl(),
@@ -49,9 +50,16 @@ export class VideoFormComponent extends FormComponent implements OnInit {
 
   ngOnInit() {
     if (this.modelId) {
+
       this.videoService.get(this.modelId)
         .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((res) => FormHelper.setFormGroupValues(this.formGroup, res));
+        .subscribe((res) => {
+          FormHelper.setFormGroupValues(this.formGroup, res, ['archive']);
+
+          //TODO: Aguardar BE retornar o nome correto do vídeo.
+          // this.archive = res.archive;
+          this.formGroup.patchValue(res);
+        });
     }
   }
 
@@ -60,13 +68,31 @@ export class VideoFormComponent extends FormComponent implements OnInit {
       return;
     }
 
+    if (this.archive) {
+      return this.save();
+    }
+
+    this.isUploadVideo = true;
+
+    this.upload()
+      .subscribe(res => {
+        this.archive = res.message;
+
+        this.save();
+      },
+        (error) => {
+          this.isUploadVideo = false;
+
+          this.emitErrorMessage(error);
+        }
+      );
+  }
+
+  private save() {
     const video = new Video();
-
-    this.onUpload();
-
     video.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup));
 
-    video.archive = this.hashVideo;
+    video.archive = this.archive;
 
     let action$: Observable<any>;
 
@@ -102,23 +128,20 @@ export class VideoFormComponent extends FormComponent implements OnInit {
       );
   }
 
-  async onUpload() {
-    let actionUpload$: Observable<any>;
+  private upload(): Observable<any> {
+    if (!this.file) {
 
-    if (this.file) {
-      actionUpload$ = this.uploadFileService.post(this.file);
+      this.emitSuccessMessage(Message.CANCEL_SELECTED_FILE);
+      return;
     }
 
-    await actionUpload$
+    return this.uploadFileService.post(this.file)
       .pipe(
         takeUntil(this.ngUnsubscribe),
-        uploadProgress(progress => {
-          console.log(progress)
-          this.progress = progress;
+        uploadProgress<any>(progress => {
+          this.progressUploadVideo = progress;
         }),
-        filterResponse()
-      )
-      .subscribe(res => console.log(res, 'Upload Concluído')
+        filterResponse<any>()
       );
   }
 
@@ -127,12 +150,16 @@ export class VideoFormComponent extends FormComponent implements OnInit {
   }
 
   onClickFileInputButton(): void {
-    this.fileInput.nativeElement.click();
+    if (!this.modelId) {
+      this.fileInput.nativeElement.click();
+    }
   }
 
   onChangeFileInput(): void {
     const files: { [key: string]: File } = this.fileInput.nativeElement.files;
     this.file = files[0];
-    this.progress = 0;
+    this.progressUploadVideo = 0;
+
+    this.formGroup.get('archive').patchValue(this.file ? this.file.name : '');
   }
 }

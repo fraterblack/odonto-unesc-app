@@ -20,7 +20,9 @@ export enum Message {
   UNSUCCESSFUL_REGISTRY_EDITION = 'Houve um erro ao editar o registro',
 
   SUCCESSFUL_REGISTRY_DELETION = 'Registro excluído com sucesso!',
-  UNSUCCESSFUL_REGISTRY_DELETION = 'Houve um erro ao excluir o registro'
+  UNSUCCESSFUL_REGISTRY_DELETION = 'Houve um erro ao excluir o registro',
+
+  CANCEL_SELECTED_FILE = 'Por favor, selecione um arquivo!'
 }
 
 /**

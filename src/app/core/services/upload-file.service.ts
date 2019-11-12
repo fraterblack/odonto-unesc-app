@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
+import { ApiService } from './api.service';
 import { Service } from './service';
 
 @Injectable({
@@ -10,22 +12,13 @@ import { Service } from './service';
 })
 export class UploadFileService extends Service {
 
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private apiService: ApiService, private http: HttpClient) {
     super();
   }
 
-  // get(id: number): Observable<any> {
-  //   return this.apiService.get(`/upload/video/${id}`);
-  // }
-
-  // post(file: File): Observable<any> {
-  //   const formData = new FormData();
-  //   formData.append('file', file, file.name);
-
-  //   return this.apiService.post(`/upload/video/`, formData);
-  // }
+  get(fileName: string): Observable<any> {
+    return this.apiService.get(`${environment.api_url}/upload/video/${fileName}`);
+  }
 
   post(file: File): Observable<any> {
     const formData = new FormData();
@@ -37,7 +30,8 @@ export class UploadFileService extends Service {
       {
         observe: 'events',
         reportProgress: true
-      });
+      })
+      .pipe(catchError(this.apiService.formatErrors));
   }
 
 }

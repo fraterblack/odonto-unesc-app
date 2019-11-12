@@ -29,28 +29,23 @@
     </div>
 
     <div class="row">
-      <div class="col col-md-5">
+      <div class="col col-md-5" [hidden]="isUploadVideo">
         <mat-form-field>
-          <input matInput type="text" *ngIf="!file; else fileName hidden "
-            [value]="!file ? 'Selecione o arquivo' : file.name" readonly>
-          <!-- <mat-label *ngIf="!file">Selecione essa merda de vídeo</mat-label> -->
-          <!-- <mat-error >Vídeo é obrigatório</mat-error> -->
-          <ng-template #fileName>
-            <input matInput type="text" [value]="file.name" formControlName="archive" readonly />
-          </ng-template>
+          <input matInput type="text" formControlName="archive" (click)="onClickFileInputButton()" readonly required>
+          <mat-label>Arquivo Vídeo mp4</mat-label>
+          <mat-error *ngIf="!modelId">Informe um vídeo mp4 válido</mat-error>
         </mat-form-field>
       </div>
-      <div class="col col-md-1">
+      <div class="col col-md-1" [hidden]="isUploadVideo">
         <input #fileInput hidden type="file" accept="video/*" (change)="onChangeFileInput()" />
-        <button mat-raised-button color="primary" (click)="onClickFileInputButton()">
+        <button [disabled]="modelId" mat-raised-button color="primary" (click)="onClickFileInputButton()">
           <mat-icon>attach_file</mat-icon>
         </button>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col col-md-6">
-        <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+      <div class="col col-md-6" [hidden]="!isUploadVideo">
+        <mat-progress-bar mode="determinate" [value]="progressUploadVideo">
+        </mat-progress-bar>
       </div>
     </div>
 
@@ -58,7 +53,7 @@
       <div class="col col-md-2">
         <mat-checkbox formControlName="shared">Compartilhado</mat-checkbox>
       </div>
-      <div class="col col-md-3">
+      <div class="col col-md-3" class="tooltipButton">
         <button mat-icon-button matTooltip="Compartilhar com outros Professores">
           <mat-icon>info_outline</mat-icon>
         </button>

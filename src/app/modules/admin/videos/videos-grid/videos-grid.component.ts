@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { take, takeUntil } from 'rxjs/operators';
@@ -104,10 +105,10 @@ export class VideosGridComponent extends GridComponent implements OnInit {
   onAction(action: string, index: number, id: number) {
     switch (action) {
       case 'new':
-        this.router.navigate([`/admin/users/create`]);
+        this.router.navigate([`/admin/videos/create`]);
         break;
       case 'edit':
-        this.router.navigate([`/admin/users/update/${id}`]);
+        this.router.navigate([`/admin/videos/update/${id}`]);
         break;
       case 'delete':
         this.busy = true;

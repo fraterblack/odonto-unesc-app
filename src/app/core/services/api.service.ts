@@ -13,7 +13,7 @@ export class ApiService {
     private http: HttpClient
   ) {}
 
-  private formatErrors(error: any) {
+  formatErrors(error: any) {
     // Try to extract error message from returned error
     if (error.error && error.error.detalhes && error.error.detalhes instanceof Object) {
       if (error.error.detalhes.errors) {

@@ -13,16 +13,12 @@
   (stateChange)="onGridStateChange($event)"
 ></app-grid>
 
-<<<<<<< HEAD
 <ng-template #shared let-row="row" let-index="index">
   <span *ngIf="row.shared" class="share-information">
     Compartilhado por {{ isVideoSharedByMe(row) ? 'mim' : row.teacher.name }}
   </span>
 </ng-template>
 
-=======
-<!-- Active -->
->>>>>>> f9779118e0dd501005d40c71a367c3f9cb1d1b4b
 <ng-template #active let-row="row" let-index="index">
   <mat-icon *ngIf="row.active">check</mat-icon>
 </ng-template>
