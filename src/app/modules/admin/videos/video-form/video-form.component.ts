@@ -57,7 +57,7 @@ export class VideoFormComponent extends FormComponent implements OnInit {
           FormHelper.setFormGroupValues(this.formGroup, res);
 
           this.isUploadVideo = false;
-          //TODO: Aguardar BE retornar o nome correto do vídeo.
+          // TODO: Aguardar BE retornar o nome correto do vídeo.
           this.archive = res.archive;
           console.log(res);
         });
