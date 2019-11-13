@@ -1,1 +1,79 @@
-<p>video-form works!</p>
+<h3 class="odonto-page-title">
+  {{ !modelId ? 'Novo Vídeo' : 'Edição Vídeo' }}
+
+  <a class="odonto-sm-button" color="accent" mat-button disableRipple="true" routerLink="/admin/videos">
+    <mat-icon>undo</mat-icon> Voltar
+  </a>
+</h3>
+
+<div class="odonto-form-container" [formGroup]="formGroup">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col col-md-6">
+        <mat-form-field>
+          <input matInput type="text" formControlName="title" required />
+          <mat-label>Título</mat-label>
+          <mat-error>Título é obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-6">
+        <mat-form-field>
+          <textarea matInput formControlName="description">
+          </textarea>
+          <mat-label>Descrição</mat-label>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-5" [hidden]="isUploadVideo">
+        <mat-form-field>
+          <input matInput type="text" formControlName="archive" (click)="onClickFileInputButton()" readonly
+            [required]="modelId">
+          <mat-label>Arquivo Vídeo mp4</mat-label>
+          <mat-error *ngIf="modelId">Informe um vídeo mp4 válido</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col col-md-1" [hidden]="isUploadVideo">
+        <input #fileInput hidden type="file" accept="video/*" (change)="onChangeFileInput()" />
+        <button [disabled]="modelId" mat-raised-button color="primary" (click)="onClickFileInputButton()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+      </div>
+
+      <div class="col col-md-6" [hidden]="!isUploadVideo">
+        <mat-progress-bar mode="determinate" [value]="progressUploadVideo">
+        </mat-progress-bar>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-5">
+        <mat-checkbox formControlName="shared">Compartilhado</mat-checkbox>
+        <button mat-icon-button matTooltip="Compartilhar com outros Professores">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="odonto-active-field">
+      <mat-checkbox formControlName="active">Ativo</mat-checkbox>
+    </div>
+
+    <div class="odonto-form-actions">
+      <button [disabled]="isUploadVideo" matButton type="button" mat-raised-button color="primary" (click)="onSave()">
+        Salvar
+      </button>
+      <button [disabled]="isUploadVideo" matButton type="button" mat-raised-button color="primary"
+        (click)="onSave(true)">
+        Salvar e Fechar
+      </button>
+      <button matButton type="button" mat-raised-button color="basic" (click)="onCancel()">
+        Cancelar
+      </button>
+
+    </div>
+  </div>
