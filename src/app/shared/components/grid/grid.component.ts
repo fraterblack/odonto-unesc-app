@@ -128,6 +128,18 @@ export class GridComponent implements AfterViewInit, AfterContentInit, OnDestroy
     return binding instanceof TemplateRef;
   }
 
+  getRowValue(row: any, binding: string): any {
+    return this.getChainedData(row, binding.split('.'), 0);
+  }
+
+  private getChainedData(data: any, deepBindings: string[], index: number): any {
+    if (deepBindings.length > (index + 1)) {
+      return this.getChainedData(data[deepBindings[index]], deepBindings, ++index);
+    }
+
+    return data[deepBindings[index]];
+  }
+
   ngOnDestroy() {
     this.dataChangeSubscription.unsubscribe();
     this.sortChangeSubscription.unsubscribe();
