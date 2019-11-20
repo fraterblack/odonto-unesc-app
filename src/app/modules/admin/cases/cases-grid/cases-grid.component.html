@@ -1,1 +1,45 @@
-<p>cases-grid works!</p>
+<h3 class="odonto-page-title">Casos</h3>
+
+<div class="odonto-grid-actions-container">
+  <button mat-raised-button color="primary" (click)="onAction('new')">
+    <mat-icon>add</mat-icon> Novo Caso
+  </button>
+</div>
+
+<app-grid
+  [grid]="grid"
+  [data]="data"
+  [busy]="busy"
+  (stateChange)="onGridStateChange($event)"
+></app-grid>
+
+<ng-template #shared let-row="row" let-index="index">
+  <span *ngIf="row.shared" class="share-information">
+    Compartilhado por {{ isCaseSharedByMe(row) ? 'mim' : row.teacher.name }}
+  </span>
+</ng-template>
+
+<ng-template #active let-row="row" let-index="index">
+    <mat-icon *ngIf="row.active">check</mat-icon>
+</ng-template>
+
+<!-- Grid Actions -->
+<ng-template #actions let-row="row" let-index="index">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="before">
+    <button *ngIf="!row.shared || isCaseSharedByMe(row)" mat-menu-item (click)="onAction('edit', index, row.id)">
+      <mat-icon>edit</mat-icon>
+      <span>Editar</span>
+    </button>
+    <button mat-menu-item (click)="onAction('duplicate', index, row.id)">
+      <mat-icon>file_copy</mat-icon>
+      <span>Duplicar</span>
+    </button>
+    <button *ngIf="!row.shared || isCaseSharedByMe(row)" mat-menu-item (click)="onAction('delete', index, row.id)">
+      <mat-icon>delete</mat-icon>
+      <span>Excluir</span>
+    </button>
+  </mat-menu>
+</ng-template>

@@ -1,1 +1,57 @@
-<p>case-form works!</p>
+<h3 class="odonto-page-title">
+  {{ !modelId ? 'Novo Caso' : 'Edição Caso' }}
+
+  <a class="odonto-sm-button" color="accent" mat-button disableRipple="true" routerLink="/admin/cases">
+    <mat-icon>undo</mat-icon> Voltar
+  </a>
+</h3>
+
+<div class="odonto-form-container" [formGroup]="formGroup">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col col-md-6">
+        <mat-form-field>
+          <input matInput type="text" formControlName="title" required />
+          <mat-label>Título</mat-label>
+          <mat-error>Título é obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-6">
+        <mat-form-field>
+          <textarea matInput formControlName="description">
+          </textarea>
+          <mat-label>Descrição</mat-label>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md-5">
+        <mat-checkbox formControlName="shared">Compartilhado</mat-checkbox>
+        <button mat-icon-button matTooltip="Compartilhar com outros Professores">
+          <mat-icon>info_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="odonto-active-field">
+      <mat-checkbox formControlName="active">Ativo</mat-checkbox>
+    </div>
+
+    <div class="odonto-form-actions">
+      <button matButton type="button" mat-raised-button color="primary" (click)="onSave(false)">
+        Salvar
+      </button>
+      <button matButton type="button" mat-raised-button color="primary"
+        (click)="onSave(true)">
+        Salvar e Fechar
+      </button>
+      <button matButton type="button" mat-raised-button color="basic" (click)="onCancel()">
+        Cancelar
+      </button>
+
+    </div>
+  </div>
