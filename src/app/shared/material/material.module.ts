@@ -87,7 +87,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
   ],
   providers: [ ]
 })

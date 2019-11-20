@@ -1,0 +1,43 @@
+@import '../../../../../styles/app-styles-support.scss';
+
+
+
+/*
+  dial: {
+      dialBackgroundColor: '#555',
+  },
+  clockFace: {
+      clockFaceBackgroundColor: '#555',
+      clockHandColor: '#9fbd90',
+      clockFaceTimeInactiveColor: '#fff'
+  }
+*/
+
+.ngx-material-timepicker {
+
+  .ngx-material-timepicker__header {
+    background-color: '#424242' !important;
+  }
+
+  .clock-face__clock-hand {
+    background-color: '#424242' !important;
+
+    &::after {
+      background-color: '#424242' !important;
+    }
+
+    &::before {
+      border-color: '#424242' !important;
+    }
+  }
+
+  .clock-face__number {
+    > span.active {
+      background-color: '#424242' !important;
+    }
+  }
+
+  button:not(.timepicker-dial__item) {
+    color: '#424242' !important;
+  }
+}
