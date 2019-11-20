@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Form } from 'src/app/shared/common';
+import { FormComponent } from 'src/app/shared/common';
 
 import { Activity } from './../../../../core/models/Activity.model';
 import { ActivityService } from './../../../../core/services/activity.service';
@@ -11,12 +11,14 @@ import { AlertService } from './../../../../core/services/alert.service';
 import { Message } from './../../../../shared/common';
 import { FormHelper } from './../../../../shared/form-helper';
 
+export { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
+
 @Component({
   selector: 'app-activity-form',
   templateUrl: './activity-form.component.html',
   styleUrls: ['./activity-form.component.scss']
 })
-export class ActivityFormComponent extends Form implements OnInit {
+export class ActivityFormComponent extends FormComponent implements OnInit {
 
   formGroup: FormGroup = new FormGroup({
     code: new FormControl(),
@@ -54,7 +56,7 @@ export class ActivityFormComponent extends Form implements OnInit {
 
     activity.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup, ['start_time', 'expiration_time']));
 
-    const startTimeFull = !this.formGroup.get('start_time').value ? this.defaultStartTime : this.formGroup.get('start_time').value;
+    const startTimeFull = !this.formGroup.get('start_time').value ? 'this.defaultStartTime' : this.formGroup.get('start_time').value;
     const splitted = startTimeFull.split(':');
     const hour = splitted[0];
     const minute = splitted[1];

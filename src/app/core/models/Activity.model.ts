@@ -1,4 +1,5 @@
 import { Model } from './model';
+import { User } from './User.model';
 
 export class Activity extends Model {
   id: number;
@@ -8,5 +9,5 @@ export class Activity extends Model {
   start_date: Date;
   expiration_date: Date;
   active?: boolean;
-  id_teacher: number;
+  id_teacher: User;
 }
