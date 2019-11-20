@@ -7,7 +7,6 @@ import { Script } from './../models/Script.model';
 import { ApiService } from './api.service';
 import { Service } from './service';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -29,7 +28,15 @@ export class ScriptService extends Service {
     return this.apiService.put(`/script/${id}`, script);
   }
 
-  query(params?: HttpParams): Observable<GridResponse> {
+  delete(id: number): Observable<any> {
+    return this.apiService.delete(`/script/${id}`);
+  }
+
+  query(params?: HttpParams, expand?: string): Observable<GridResponse> {
+    if (expand) {
+      params = params.set('expand', expand);
+    }
+
     return this.apiService.get(`/script`, params);
   }
 }
