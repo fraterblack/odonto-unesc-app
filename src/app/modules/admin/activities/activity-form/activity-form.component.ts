@@ -70,17 +70,20 @@ export class ActivityFormComponent extends FormComponent implements OnInit {
 
     activity.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup, ['start_time', 'expiration_time']));
 
-    const startTimeFull = !this.formGroup.get('start_time').value ? 'this.defaultStartTime' : this.formGroup.get('start_time').value;
-    const splitted = startTimeFull.split(':');
-    const hour = splitted[0];
-    const minute = splitted[1];
-
+    // Join start date with time
+    const startTime = this.formGroup.get('start_time').value;
+    const splittedStartTime = startTime.split(':');
     const startDate = this.formGroup.get('start_date').value;
-    startDate.setHours(hour, minute);
+    startDate.setHours(splittedStartTime[0], splittedStartTime[1]);
+
+    // Join expiration date with time
+    const expirationTime = this.formGroup.get('expiration_time').value;
+    const splittedExpirationTime = expirationTime.split(':');
+    const expirationDate = this.formGroup.get('expiration_date').value;
+    expirationDate.setHours(splittedExpirationTime[0], splittedExpirationTime[1]);
 
     activity.start_date = startDate;
-
-    console.log(this.formGroup.controls);
+    activity.expiration_date = expirationDate;
 
     let action$: Observable<any>;
 
