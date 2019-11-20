@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FormComponent } from 'src/app/shared/common';
@@ -20,6 +21,12 @@ export { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 })
 export class ActivityFormComponent extends FormComponent implements OnInit {
 
+  constructor(alertService: AlertService, private activityService: ActivityService, private router: Router, route: ActivatedRoute) {
+    super(alertService);
+
+    this.modelId = route.snapshot.params.id;
+  }
+
   formGroup: FormGroup = new FormGroup({
     code: new FormControl(),
     name: new FormControl(),
@@ -33,11 +40,18 @@ export class ActivityFormComponent extends FormComponent implements OnInit {
 
   modelId: number;
 
-  constructor(alertService: AlertService, private activityService: ActivityService, private router: Router, route: ActivatedRoute) {
-    super(alertService);
-
-    this.modelId = route.snapshot.params.id;
-  }
+  // Theme Timepicker
+  timePickerTheme: NgxMaterialTimepickerTheme = {
+    container: {
+      buttonColor: '#039be5',
+    },
+    dial: {
+      dialBackgroundColor: '#039be5',
+    },
+    clockFace: {
+      clockHandColor: '#039be5',
+    }
+  };
 
   ngOnInit() {
     if (this.modelId) {
@@ -83,14 +97,14 @@ export class ActivityFormComponent extends FormComponent implements OnInit {
 
           this.emitSuccessMessage(
             this.modelId
-            ? Message.SUCCESSFUL_REGISTRY_EDITION
-            : Message.SUCCESSFUL_REGISTRY_INSERTION);
+              ? Message.SUCCESSFUL_REGISTRY_EDITION
+              : Message.SUCCESSFUL_REGISTRY_INSERTION);
 
           // When save & close
           if (close) {
             this.router.navigate([`/admin/activities`]);
 
-          // When save only
+            // When save only
           } else {
             // When is a new registry, redirect to update
             if (!this.modelId) {

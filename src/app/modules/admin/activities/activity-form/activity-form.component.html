@@ -54,7 +54,7 @@
           <mat-label>Hora Início</mat-label>
           <mat-error>Hora início é obrigatório</mat-error>
           <ngx-material-timepicker-toggle matSuffix [for]="startTime"></ngx-material-timepicker-toggle>
-          <ngx-material-timepicker #startTime></ngx-material-timepicker>
+          <ngx-material-timepicker [theme]="timePickerTheme" #startTime></ngx-material-timepicker>
         </mat-form-field>
       </div>
     </div>
@@ -75,7 +75,7 @@
           <mat-label>Hora Expiração</mat-label>
           <mat-error>Hora expiração é obrigatório</mat-error>
           <ngx-material-timepicker-toggle matSuffix [for]="expirationTime"></ngx-material-timepicker-toggle>
-          <ngx-material-timepicker #expirationTime></ngx-material-timepicker>
+          <ngx-material-timepicker [theme]="timePickerTheme" #expirationTime></ngx-material-timepicker>
         </mat-form-field>
       </div>
     </div>
