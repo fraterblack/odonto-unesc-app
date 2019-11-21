@@ -3,11 +3,13 @@ import { User } from './User.model';
 
 export class Activity extends Model {
   id: number;
+  title: string;
+  description?: string;
   code: number;
-  name: string;
-  description: string;
-  start_date: Date;
-  expiration_date: Date;
+  dateStart: Date;
+  dateEnd: Date;
   active?: boolean;
-  id_teacher: User;
+  createdAt?: Date;
+  updatedAt?: Date;
+  teacher: User;
 }
