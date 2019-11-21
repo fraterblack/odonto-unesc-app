@@ -7,7 +7,7 @@ import {
   OnDestroy,
   Output,
   TemplateRef,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';

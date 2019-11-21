@@ -1,14 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Case } from 'src/app/core/models/Case.model';
 
 import { AlertService } from './../../../../core/services/alert.service';
 import { CaseService } from './../../../../core/services/case.service';
 import { FormComponent, Message } from './../../../../shared/common';
+import {
+  RelatedItem,
+  RelatedItemAction,
+  RelatedItemActionType,
+} from './../../../../shared/components/related-items-selector/related-item-selector';
 import { FormHelper } from './../../../../shared/form-helper';
+
+const ELEMENT_DATA: RelatedItem[] = [
+
+];
 
 @Component({
   selector: 'app-case-form',
@@ -25,6 +34,41 @@ export class CaseFormComponent extends FormComponent implements OnInit {
   });
 
   modelId: number;
+
+  // Stard here
+  dataSource = ELEMENT_DATA;
+  relatedData: Subject<RelatedItem[]> = new Subject<RelatedItem[]>();
+
+  onAction(action: RelatedItemAction) {
+    console.log(action);
+    console.log(this.dataSource);
+
+    switch (action.type) {
+      // When notified by the component that is done to populate
+      case RelatedItemActionType.LOADED:
+        this.dataSource.push({ id: 1, position: 1, title: 'LOADED' });
+        break;
+      case RelatedItemActionType.NEW:
+        this.dataSource.push({ id: 2, position: 2, title: 'NEW' });
+        break;
+      case RelatedItemActionType.SORT_UP:
+        this.dataSource.push({ id: 3, position: 3, title: 'SORT_UP' });
+        break;
+      case RelatedItemActionType.SORT_DOWN:
+        this.dataSource.push({ id: 4, position: 4, title: 'SORT_DOWN' });
+        break;
+      case RelatedItemActionType.DELETE:
+        delete this.dataSource[this.dataSource.indexOf(action.element)];
+        break;
+      case RelatedItemActionType.VIEW:
+        this.dataSource.push({ id: 5, position: 5, title: 'VIEW' });
+        break;
+    }
+
+    // When notified by the component that is done to populate6
+    this.relatedData.next(this.dataSource);
+    this.relatedData.asObservable();
+  }
 
   constructor(alertService: AlertService, private caseService: CaseService, private router: Router, route: ActivatedRoute) {
     super(alertService);
