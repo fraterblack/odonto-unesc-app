@@ -14,4 +14,6 @@ export enum RelatedItemActionType {
   NEW = 'new',
   SORT_UP = 'sortUp',
   SORT_DOWN = 'sortDown',
+  DELETE = 'delete',
+  VIEW = 'view'
 }
