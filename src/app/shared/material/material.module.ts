@@ -89,8 +89,6 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatSortModule,
     NgxMaterialTimepickerModule,
   ],
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
-   ]
-})
+  providers: [ {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'} ]
+  })
 export class MaterialModule { }
