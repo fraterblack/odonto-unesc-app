@@ -12,9 +12,9 @@
     <div class="row">
       <div class="col col-md-6">
         <mat-form-field>
-          <input matInput type="text" formControlName="name" required />
-          <mat-label>Nome</mat-label>
-          <mat-error>Nome é obrigatório</mat-error>
+          <input matInput type="text" formControlName="title" required />
+          <mat-label>Título</mat-label>
+          <mat-error>Título é obrigatório</mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -41,20 +41,20 @@
     <div class="row">
       <div class="col col-md-3">
         <mat-form-field>
-          <input matInput [matDatepicker]="startDate" formControlName="start_date" required>
+          <input matInput [matDatepicker]="dateStartt" formControlName="dateStart" required>
           <mat-label>Data Início</mat-label>
           <mat-error>Data início é obrigatório</mat-error>
-          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-          <mat-datepicker #startDate></mat-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="dateStartt"></mat-datepicker-toggle>
+          <mat-datepicker #dateStartt></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="col col-md-3">
         <mat-form-field>
-          <input matInput [ngxTimepicker]="startTime" [format]="24" formControlName="start_time" required/>
+          <input matInput [ngxTimepicker]="timeStartt" [format]="24" formControlName="timeStart" required/>
           <mat-label>Hora Início</mat-label>
           <mat-error>Hora início é obrigatório</mat-error>
-          <ngx-material-timepicker-toggle matSuffix [for]="startTime"></ngx-material-timepicker-toggle>
-          <ngx-material-timepicker [theme]="timePickerTheme" #startTime></ngx-material-timepicker>
+          <ngx-material-timepicker-toggle matSuffix [for]="timeStartt"></ngx-material-timepicker-toggle>
+          <ngx-material-timepicker [theme]="timePickerTheme" #timeStartt></ngx-material-timepicker>
         </mat-form-field>
       </div>
     </div>
@@ -62,30 +62,21 @@
     <div class="row">
       <div class="col col-md-3">
         <mat-form-field>
-          <input matInput [matDatepicker]="expirationDate" formControlName="expiration_date" required>
-          <mat-label>Data Expiração</mat-label>
+          <input matInput [matDatepicker]="dateEndd" formControlName="dateEnd" required>
+          <mat-label>Data Fim</mat-label>
           <mat-error>Data expiração é obrigatório</mat-error>
-          <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
-          <mat-datepicker #expirationDate></mat-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="dateEndd"></mat-datepicker-toggle>
+          <mat-datepicker #dateEndd></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="col col-md-3">
         <mat-form-field>
-          <input matInput [ngxTimepicker]="expirationTime" [format]="24" formControlName="expiration_time" required/>
-          <mat-label>Hora Expiração</mat-label>
+          <input matInput [ngxTimepicker]="timeEndd" [format]="24" formControlName="timeEnd" required/>
+          <mat-label>Hora Fim</mat-label>
           <mat-error>Hora expiração é obrigatório</mat-error>
-          <ngx-material-timepicker-toggle matSuffix [for]="expirationTime"></ngx-material-timepicker-toggle>
-          <ngx-material-timepicker [theme]="timePickerTheme" #expirationTime></ngx-material-timepicker>
+          <ngx-material-timepicker-toggle matSuffix [for]="timeEndd"></ngx-material-timepicker-toggle>
+          <ngx-material-timepicker [theme]="timePickerTheme" #timeEndd></ngx-material-timepicker>
         </mat-form-field>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col col-md-6">
-        <mat-checkbox formControlName="manager">Compartilhado</mat-checkbox>
-        <button mat-icon-button matTooltip="Compartilhar com outros Professores">
-          <mat-icon>info_outline</mat-icon>
-        </button>
       </div>
     </div>
 

@@ -28,6 +28,9 @@ export class ActivityService extends Service {
     return this.apiService.put(`/Lesson/${id}`, activity);
   }
 
+  delete(id: number): Observable<any> {
+    return this.apiService.delete(`/Lesson/${id}`);
+  }
 
   query(params?: HttpParams, expand?: string): Observable<GridResponse> {
     if (expand) {

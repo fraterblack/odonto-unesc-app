@@ -28,13 +28,13 @@ export class ActivityFormComponent extends FormComponent implements OnInit {
   }
 
   formGroup: FormGroup = new FormGroup({
-    code: new FormControl(),
-    name: new FormControl(),
+    title: new FormControl(),
     description: new FormControl(),
-    start_date: new FormControl(),
-    start_time: new FormControl(),
-    expiration_date: new FormControl(),
-    expiration_time: new FormControl(),
+    code: new FormControl(),
+    dateStart: new FormControl(),
+    timeStart: new FormControl(),
+    dateEnd: new FormControl(),
+    timeEnd: new FormControl(),
     active: new FormControl(true)
   });
 
@@ -57,7 +57,10 @@ export class ActivityFormComponent extends FormComponent implements OnInit {
     if (this.modelId) {
       this.activityService.get(this.modelId)
         .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((res) => FormHelper.setFormGroupValues(this.formGroup, res, ['start_time', 'expiration_time']));
+        .subscribe((res) => {
+          FormHelper.setFormGroupValues(this.formGroup, res);
+          // TODO: Create logic from capture time
+        });
     }
   }
 
@@ -68,22 +71,21 @@ export class ActivityFormComponent extends FormComponent implements OnInit {
 
     const activity = new Activity();
 
-    activity.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup, ['start_time', 'expiration_time']));
+    activity.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup, ['timeStart', 'timeEnd']));
 
     // Join start date with time
-    const startTime = this.formGroup.get('start_time').value;
+    const dateStart = this.formGroup.get('dateStart').value;
+    const startTime = this.formGroup.get('timeStart').value;
     const splittedStartTime = startTime.split(':');
-    const startDate = this.formGroup.get('start_date').value;
-    startDate.setHours(splittedStartTime[0], splittedStartTime[1]);
+    dateStart.setHours(splittedStartTime[0], splittedStartTime[1]);
+    activity.dateStart = dateStart;
 
-    // Join expiration date with time
-    const expirationTime = this.formGroup.get('expiration_time').value;
-    const splittedExpirationTime = expirationTime.split(':');
-    const expirationDate = this.formGroup.get('expiration_date').value;
-    expirationDate.setHours(splittedExpirationTime[0], splittedExpirationTime[1]);
-
-    activity.start_date = startDate;
-    activity.expiration_date = expirationDate;
+    // Join end date with time
+    const dateEnd = this.formGroup.get('dateEnd').value;
+    const timeEnd = this.formGroup.get('timeEnd').value;
+    const splittedEndTime = timeEnd.split(':');
+    dateEnd.setHours(splittedEndTime[0], splittedEndTime[1]);
+    activity.dateEnd = dateEnd;
 
     let action$: Observable<any>;
 
