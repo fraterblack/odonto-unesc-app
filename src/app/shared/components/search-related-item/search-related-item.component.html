@@ -1,0 +1,22 @@
+<div class="search-related-item-component">
+  <h3 mat-dialog-title *ngIf="title" class="odonto-dialog-title">{{ title }}</h3>
+  <div mat-dialog-content class="content">
+    <p class="items-selected-counter">
+      {{ selectedItems.length }} item selecionado{{ selectedItems.length > 1 ? 's' : '' }}
+      <button mat-button (click)="onClearSelected()" *ngIf="selectedItems.length > 0">Limpar</button></p>
+    <app-grid
+      [grid]="grid"
+      [data]="data"
+      [busy]="busy"
+      (stateChange)="onGridStateChange($event)"
+    ></app-grid>
+
+    <ng-template #select let-row="row" let-index="index">
+      <mat-checkbox [(ngModel)]="selectedItemsControl[row.id]" (change)="onCheckChange($event, row)"></mat-checkbox>
+    </ng-template>
+  </div>
+  <div mat-dialog-actions class="odonto-dialog-actions">
+    <button mat-button mat-raised-button color="primary" (click)="onSelect()" cdkFocusInitial>Adicionar</button>
+    <button mat-button mat-raised-button color="basic" (click)="onCancel()">Cancelar</button>
+  </div>
+</div>

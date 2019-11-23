@@ -1,0 +1,8 @@
+<h3 mat-dialog-title *ngIf="data.title" class="odonto-dialog-title">{{ data.title }}</h3>
+<div mat-dialog-content class="message">
+  <p>{{ data.message }}</p>
+</div>
+<div mat-dialog-actions class="odonto-dialog-actions">
+  <button mat-button mat-raised-button color="primary" (click)="onConfirm()" cdkFocusInitial>{{ isConfirmation ? 'Sim' : 'Ok' }}</button>
+  <button *ngIf="isConfirmation" mat-button mat-raised-button color="basic" (click)="onCancel()">Não</button>
+</div>
