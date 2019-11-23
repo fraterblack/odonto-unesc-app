@@ -245,4 +245,22 @@ body {
       margin-right: 15px;
     }
   }
+
+  &-dialog {
+    &-title {
+      margin: 0 0 15px;
+      font-weight: normal;
+      font-size: 18px;
+      color: $accent-color;
+    }
+
+    &-actions {
+      text-align: center;
+      margin-top: 15px;
+
+      button {
+        margin-left: 15px;
+      }
+    }
+  }
 }
