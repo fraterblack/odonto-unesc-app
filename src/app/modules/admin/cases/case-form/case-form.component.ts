@@ -35,9 +35,15 @@ export class CaseFormComponent extends FormComponent implements OnInit {
 
   modelId: number;
 
-  // Stard here
   dataSource = ELEMENT_DATA;
   relatedData: Subject<RelatedItem[]> = new Subject<RelatedItem[]>();
+  private temp: any;
+
+  constructor(alertService: AlertService, private caseService: CaseService, private router: Router, route: ActivatedRoute) {
+    super(alertService);
+
+    this.modelId = route.snapshot.params.id;
+  }
 
   onAction(action: RelatedItemAction) {
     console.log(action);
@@ -52,13 +58,19 @@ export class CaseFormComponent extends FormComponent implements OnInit {
         this.dataSource.push({ id: 2, position: 2, title: 'NEW' });
         break;
       case RelatedItemActionType.SORT_UP:
-        this.dataSource.push({ id: 3, position: 3, title: 'SORT_UP' });
+        const indexItemUp = this.dataSource.indexOf(this.getItemSelected(action.element.id));
+        this.temp = this.dataSource[indexItemUp - 1];
+        this.dataSource[indexItemUp - 1] = this.dataSource[indexItemUp];
+        this.dataSource[indexItemUp] = this.temp;
         break;
       case RelatedItemActionType.SORT_DOWN:
-        this.dataSource.push({ id: 4, position: 4, title: 'SORT_DOWN' });
+        const indexItemDown = this.dataSource.indexOf(this.getItemSelected(action.element.id));
+        this.temp = this.dataSource[indexItemDown + 1];
+        this.dataSource[indexItemDown + 1] = this.dataSource[indexItemDown];
+        this.dataSource[indexItemDown] = this.temp;
         break;
       case RelatedItemActionType.DELETE:
-        delete this.dataSource[this.dataSource.indexOf(action.element)];
+        this.dataSource.splice(this.dataSource.indexOf(this.getItemSelected(action.element.id)), 1);
         break;
       case RelatedItemActionType.VIEW:
         this.dataSource.push({ id: 5, position: 5, title: 'VIEW' });
@@ -68,12 +80,6 @@ export class CaseFormComponent extends FormComponent implements OnInit {
     // When notified by the component that is done to populate6
     this.relatedData.next(this.dataSource);
     this.relatedData.asObservable();
-  }
-
-  constructor(alertService: AlertService, private caseService: CaseService, private router: Router, route: ActivatedRoute) {
-    super(alertService);
-
-    this.modelId = route.snapshot.params.id;
   }
 
   ngOnInit() {
@@ -123,6 +129,10 @@ export class CaseFormComponent extends FormComponent implements OnInit {
         },
         error => this.emitErrorMessage(error)
       );
+  }
+
+  private getItemSelected(idElement: number) {
+    return this.dataSource.find((item) => item.id === idElement);
   }
 
   onCancel() {
