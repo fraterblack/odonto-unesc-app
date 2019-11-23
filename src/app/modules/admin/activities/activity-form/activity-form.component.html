@@ -1,24 +1,99 @@
-<mat-card>
-    <form class="activity-form">
-        
-        <mat-card-title>Atividade</mat-card-title>
+<h3 class="odonto-page-title">
+  {{ !modelId ? 'Nova Atividade' : 'Edição Atividade' }}
 
+  <a class="odonto-sm-button" color="accent" mat-button disableRipple="true" routerLink="/admin/activities">
+    <mat-icon>undo</mat-icon> Voltar
+  </a>
+</h3>
+
+<div class="odonto-form-container" [formGroup]="formGroup">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col col-md-6">
         <mat-form-field>
-            <input matInput placeholder="Título" type="text" formControlName="text" required />
+          <input matInput type="text" formControlName="title" required />
+          <mat-label>Título</mat-label>
+          <mat-error>Título é obrigatório</mat-error>
         </mat-form-field>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="col col-md-6">
         <mat-form-field>
-            <textarea matInput placeholder="Descrição"></textarea>
+          <input matInput type="number" formControlName="code" required />
+          <mat-label>Código Atividade</mat-label>
+          <mat-error>Código é obrigatório</mat-error>
         </mat-form-field>
+      </div>
+    </div>
 
-
-        <mat-form-field class="format-date">
-            <input matInput [matDatepicker]="picker" placeholder="Data/Hora Início">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+    <div class="row">
+      <div class="col col-md-6">
+        <mat-form-field>
+          <textarea matInput type="text" formControlName="description"></textarea>
+          <mat-label>Descrição</mat-label>
         </mat-form-field>
+      </div>
+    </div>
 
-        <mat-checkbox>Compartilhar</mat-checkbox>   
+    <div class="row">
+      <div class="col col-md-3">
+        <mat-form-field>
+          <input matInput [matDatepicker]="dateStartt" formControlName="dateStart" required>
+          <mat-label>Data Início</mat-label>
+          <mat-error>Data início é obrigatório</mat-error>
+          <mat-datepicker-toggle matSuffix [for]="dateStartt"></mat-datepicker-toggle>
+          <mat-datepicker #dateStartt></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col col-md-3">
+        <mat-form-field>
+          <input matInput [ngxTimepicker]="timeStartt" [format]="24" formControlName="timeStart" required/>
+          <mat-label>Hora Início</mat-label>
+          <mat-error>Hora início é obrigatório</mat-error>
+          <ngx-material-timepicker-toggle matSuffix [for]="timeStartt"></ngx-material-timepicker-toggle>
+          <ngx-material-timepicker [theme]="timePickerTheme" #timeStartt></ngx-material-timepicker>
+        </mat-form-field>
+      </div>
+    </div>
 
-    </form>
-</mat-card>
+    <div class="row">
+      <div class="col col-md-3">
+        <mat-form-field>
+          <input matInput [matDatepicker]="dateEndd" formControlName="dateEnd" required>
+          <mat-label>Data Fim</mat-label>
+          <mat-error>Data expiração é obrigatório</mat-error>
+          <mat-datepicker-toggle matSuffix [for]="dateEndd"></mat-datepicker-toggle>
+          <mat-datepicker #dateEndd></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col col-md-3">
+        <mat-form-field>
+          <input matInput [ngxTimepicker]="timeEndd" [format]="24" formControlName="timeEnd" required/>
+          <mat-label>Hora Fim</mat-label>
+          <mat-error>Hora expiração é obrigatório</mat-error>
+          <ngx-material-timepicker-toggle matSuffix [for]="timeEndd"></ngx-material-timepicker-toggle>
+          <ngx-material-timepicker [theme]="timePickerTheme" #timeEndd></ngx-material-timepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="odonto-active-field">
+      <mat-checkbox formControlName="active">Ativo</mat-checkbox>
+    </div>
+
+    <div class="odonto-form-actions">
+      <button matButton type="button" mat-raised-button color="primary" (click)="onSave()">
+        Salvar
+      </button>
+      <button matButton type="button" mat-raised-button color="primary" (click)="onSave(true)">
+        Salvar e Fechar
+      </button>
+      <button matButton type="button" mat-raised-button color="basic" (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>
