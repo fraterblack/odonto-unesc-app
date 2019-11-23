@@ -17,14 +17,15 @@ export class ConfirmationDialogComponent {
     private dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmationDialogData
   ) {
-    this.isConfirmation = data.mode === ConfirmationDialogType.Co
+    this.isConfirmation = data.mode === ConfirmationDialogType.CONFIRMATION;
+    this.isAlert = data.mode === ConfirmationDialogType.ALERT;
   }
 
-  onNoClick(): void {
+  onCancel(): void {
     this.dialogRef.close(false);
   }
 
-  onYesClick(): void {
+  onConfirm(): void {
     this.dialogRef.close(true);
   }
 }

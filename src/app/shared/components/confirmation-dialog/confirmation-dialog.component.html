@@ -3,6 +3,6 @@
   <p>{{ data.message }}</p>
 </div>
 <div mat-dialog-actions class="odonto-dialog-actions">
-  <button mat-button mat-raised-button color="primary" (click)="onYesClick()" cdkFocusInitial>Sim</button>
-  <button mat-button mat-raised-button color="basic" (click)="onNoClick()">Não</button>
+  <button mat-button mat-raised-button color="primary" (click)="onConfirm()" cdkFocusInitial>{{ isConfirmation ? 'Sim' : 'Ok' }}</button>
+  <button *ngIf="isConfirmation" mat-button mat-raised-button color="basic" (click)="onCancel()">Não</button>
 </div>

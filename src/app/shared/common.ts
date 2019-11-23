@@ -95,7 +95,7 @@ export abstract class GridComponent extends Unsubscrable {
    */
   data: Subject<GridResponse> = new Subject();
 
-  constructor(private alertService: AlertService) {
+  constructor(private alertService?: AlertService) {
     super();
   }
 
@@ -155,7 +155,9 @@ export abstract class GridComponent extends Unsubscrable {
    * @param message Message to be showed
    */
   emitSuccessMessage(message: string) {
-    this.alertService.open(message, AlertType.SUCCESS, 2500);
+    if (this.alertService) {
+      this.alertService.open(message, AlertType.SUCCESS, 2500);
+    }
   }
 
   /**
@@ -164,6 +166,8 @@ export abstract class GridComponent extends Unsubscrable {
    * @param message Message to be showed
    */
   emitErrorMessage(message: string) {
-    this.alertService.open(message, AlertType.ERROR, 30000);
+    if (this.alertService) {
+      this.alertService.open(message, AlertType.ERROR, 30000);
+    }
   }
 }
