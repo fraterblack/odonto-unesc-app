@@ -136,7 +136,6 @@ export class VideosGridComponent extends GridComponent implements OnInit {
     this.busy = true;
 
     const params = this.parseGridStateToHttpParams(state);
-    debugger
 
     this.videoService.query(params, 'teacher')
       .pipe(mapToGridResponse())
@@ -145,7 +144,6 @@ export class VideosGridComponent extends GridComponent implements OnInit {
         takeUntil(this.ngUnsubscribe)
       )
       .subscribe((resp) => {
-        debugger
         this.busy = false;
 
         this.data.next(resp);
