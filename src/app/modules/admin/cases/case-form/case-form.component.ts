@@ -57,11 +57,35 @@ export class CaseFormComponent extends FormComponent implements OnInit {
     this.modelId = route.snapshot.params.id;
   }
 
+  ngOnInit() {
+    if (this.modelId) {
+      this.caseService.get(this.modelId)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res) => {
+          FormHelper.setFormGroupValues(this.formGroup, res);
+
+          const videos = res.videos;
+
+          videos.forEach(x => {
+            this.videoService.get(x.id)
+              .pipe(takeUntil(this.ngUnsubscribe))
+              .subscribe(ress => {
+                this.dataSource.push(ress);
+
+                this.relatedData.next(this.dataSource);
+                this.relatedData.asObservable();
+              });
+          });
+        }
+        );
+    }
+  }
+
   onAction(action: RelatedItemAction) {
     switch (action.type) {
       // When notified by the component that is done to populate
       case RelatedItemActionType.LOADED:
-        // TODO: Loaded
+        this.dataSource = [];
         this.relatedData.next(this.dataSource);
         this.relatedData.asObservable();
         break;
@@ -112,27 +136,14 @@ export class CaseFormComponent extends FormComponent implements OnInit {
         this.dataSource.splice(this.dataSource.findIndex((item) => item.id === action.element.id), 1);
         break;
       case RelatedItemActionType.VIEW:
-        this.dataSource.push({ id: 5, position: 5, title: 'VIEW' });
+        // TODO
+        // this.dataSource.push({ id: 5, position: 5, title: 'VIEW' });
         break;
     }
 
     // When notified by the component that is done to populate6
     this.relatedData.next(this.dataSource);
     this.relatedData.asObservable();
-  }
-
-  ngOnInit() {
-    if (this.modelId) {
-      this.caseService.get(this.modelId)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((res) => {
-          FormHelper.setFormGroupValues(this.formGroup, res);
-
-          this.relatedData.next(this.dataSource);
-          this.relatedData.asObservable();
-        }
-        );
-    }
   }
 
   onSave(close?: boolean) {
