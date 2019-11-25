@@ -10,4 +10,5 @@ export class Case extends Model {
   createdAt?: Date;
   updatedAt?: Date;
   teacher: User;
+  videos: number[];
 }

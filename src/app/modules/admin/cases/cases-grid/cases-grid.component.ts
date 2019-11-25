@@ -107,7 +107,7 @@ export class CasesGridComponent extends GridComponent implements OnInit {
         this.router.navigate([`/admin/cases/create`]);
         break;
       case 'edit':
-        this.router.navigate([`/admin/case/update/${id}`]);
+        this.router.navigate([`/admin/cases/update/${id}`]);
         break;
       case 'delete':
         this.busy = true;

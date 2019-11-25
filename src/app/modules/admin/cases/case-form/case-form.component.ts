@@ -1,23 +1,27 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Case } from 'src/app/core/models/Case.model';
 
+import { Case } from './../../../../core/models/Case.model';
 import { AlertService } from './../../../../core/services/alert.service';
 import { CaseService } from './../../../../core/services/case.service';
+import { VideoService } from './../../../../core/services/video.service';
 import { FormComponent, Message } from './../../../../shared/common';
 import {
   RelatedItem,
   RelatedItemAction,
   RelatedItemActionType,
 } from './../../../../shared/components/related-items-selector/related-item-selector';
+import {
+  SearchRelatedItemComponent,
+} from './../../../../shared/components/search-related-item/search-related-item.component';
 import { FormHelper } from './../../../../shared/form-helper';
 
-const ELEMENT_DATA: RelatedItem[] = [
-
-];
+const ELEMENT_DATA: RelatedItem[] = [];
 
 @Component({
   selector: 'app-case-form',
@@ -30,47 +34,100 @@ export class CaseFormComponent extends FormComponent implements OnInit {
     title: new FormControl(),
     description: new FormControl(),
     shared: new FormControl(false),
+    videos: new FormControl([]),
     active: new FormControl(true)
   });
 
   modelId: number;
+  videoss = [];
 
   dataSource = ELEMENT_DATA;
   relatedData: Subject<RelatedItem[]> = new Subject<RelatedItem[]>();
   private temp: any;
 
-  constructor(alertService: AlertService, private caseService: CaseService, private router: Router, route: ActivatedRoute) {
+  constructor(
+    alertService: AlertService,
+    private videoService: VideoService,
+    private caseService: CaseService,
+    private router: Router,
+    private dialog: MatDialog,
+    route: ActivatedRoute
+  ) {
     super(alertService);
 
     this.modelId = route.snapshot.params.id;
   }
 
+  ngOnInit() {
+    if (this.modelId) {
+      this.caseService.get(this.modelId)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res) => {
+          FormHelper.setFormGroupValues(this.formGroup, res);
+
+          this.relatedData.next(this.dataSource);
+          this.relatedData.asObservable();
+        }
+        );
+    }
+  }
+
   onAction(action: RelatedItemAction) {
-    console.log(action);
+
     console.log(this.dataSource);
 
     switch (action.type) {
       // When notified by the component that is done to populate
       case RelatedItemActionType.LOADED:
-        this.dataSource.push({ id: 1, position: 1, title: 'LOADED' });
+        // this.dataSource.push({ id: 1, position: 1, title: 'LOADED' });
+        this.relatedData.next(this.dataSource);
+        this.relatedData.asObservable();
         break;
       case RelatedItemActionType.NEW:
-        this.dataSource.push({ id: 2, position: 2, title: 'NEW' });
+        return this.dialog.open(SearchRelatedItemComponent, {
+          width: '700px',
+          data: {
+            title: 'Selecionar Vídeos',
+            query: this.queryVideos.bind(this),
+            columns: [
+              {
+                name: 'title',
+                header: 'Título',
+                binding: 'title'
+              }
+            ]
+          }
+        }).afterClosed()
+          .subscribe((result) => {
+            if (result) {
+              // Iterate over each selected item to put in the list
+              result.forEach(x => {
+                const alreadyExists = this.dataSource.find(y => y.id === x.id);
+
+                if (!alreadyExists) {
+                  this.dataSource.push(x);
+                }
+              });
+
+              this.relatedData.next(this.dataSource);
+              this.relatedData.asObservable();
+            }
+          });
         break;
       case RelatedItemActionType.SORT_UP:
-        const indexItemUp = this.dataSource.indexOf(this.getItemSelected(action.element.id));
+        const indexItemUp = this.dataSource.findIndex((item) => item.id === action.element.id);
         this.temp = this.dataSource[indexItemUp - 1];
         this.dataSource[indexItemUp - 1] = this.dataSource[indexItemUp];
         this.dataSource[indexItemUp] = this.temp;
         break;
       case RelatedItemActionType.SORT_DOWN:
-        const indexItemDown = this.dataSource.indexOf(this.getItemSelected(action.element.id));
+        const indexItemDown = this.dataSource.findIndex((item) => item.id === action.element.id);
         this.temp = this.dataSource[indexItemDown + 1];
         this.dataSource[indexItemDown + 1] = this.dataSource[indexItemDown];
         this.dataSource[indexItemDown] = this.temp;
         break;
       case RelatedItemActionType.DELETE:
-        this.dataSource.splice(this.dataSource.indexOf(this.getItemSelected(action.element.id)), 1);
+        this.dataSource.splice(this.dataSource.findIndex((item) => item.id === action.element.id), 1);
         break;
       case RelatedItemActionType.VIEW:
         this.dataSource.push({ id: 5, position: 5, title: 'VIEW' });
@@ -82,14 +139,6 @@ export class CaseFormComponent extends FormComponent implements OnInit {
     this.relatedData.asObservable();
   }
 
-  ngOnInit() {
-    if (this.modelId) {
-      this.caseService.get(this.modelId)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((res) => FormHelper.setFormGroupValues(this.formGroup, res));
-    }
-  }
-
   onSave(close?: boolean) {
     if (!this.validateForm(this.formGroup)) {
       return;
@@ -97,6 +146,15 @@ export class CaseFormComponent extends FormComponent implements OnInit {
 
     const casee = new Case();
     casee.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup));
+    // Reset for edit without closing the form
+    casee.videos = [];
+
+    if (this.dataSource.length !== 0) {
+      this.dataSource.forEach(x => {
+          casee.videos.push(x.id);
+      });
+    }
+
     let action$: Observable<any>;
 
     if (this.modelId) {
@@ -112,14 +170,14 @@ export class CaseFormComponent extends FormComponent implements OnInit {
 
           this.emitSuccessMessage(
             this.modelId
-            ? Message.SUCCESSFUL_REGISTRY_EDITION
-            : Message.SUCCESSFUL_REGISTRY_INSERTION);
+              ? Message.SUCCESSFUL_REGISTRY_EDITION
+              : Message.SUCCESSFUL_REGISTRY_INSERTION);
 
           // When save & close
           if (close) {
             this.router.navigate([`/admin/cases`]);
 
-          // When save only
+            // When save only
           } else {
             // When is a new registry, redirect to update
             if (!this.modelId) {
@@ -131,8 +189,8 @@ export class CaseFormComponent extends FormComponent implements OnInit {
       );
   }
 
-  private getItemSelected(idElement: number) {
-    return this.dataSource.find((item) => item.id === idElement);
+  queryVideos(params: HttpParams) {
+    return this.videoService.query(params);
   }
 
   onCancel() {
