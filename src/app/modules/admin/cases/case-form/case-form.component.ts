@@ -39,7 +39,6 @@ export class CaseFormComponent extends FormComponent implements OnInit {
   });
 
   modelId: number;
-  videoss = [];
 
   dataSource = ELEMENT_DATA;
   relatedData: Subject<RelatedItem[]> = new Subject<RelatedItem[]>();
@@ -58,28 +57,11 @@ export class CaseFormComponent extends FormComponent implements OnInit {
     this.modelId = route.snapshot.params.id;
   }
 
-  ngOnInit() {
-    if (this.modelId) {
-      this.caseService.get(this.modelId)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((res) => {
-          FormHelper.setFormGroupValues(this.formGroup, res);
-
-          this.relatedData.next(this.dataSource);
-          this.relatedData.asObservable();
-        }
-        );
-    }
-  }
-
   onAction(action: RelatedItemAction) {
-
-    console.log(this.dataSource);
-
     switch (action.type) {
       // When notified by the component that is done to populate
       case RelatedItemActionType.LOADED:
-        // this.dataSource.push({ id: 1, position: 1, title: 'LOADED' });
+        // TODO: Loaded
         this.relatedData.next(this.dataSource);
         this.relatedData.asObservable();
         break;
@@ -139,6 +121,20 @@ export class CaseFormComponent extends FormComponent implements OnInit {
     this.relatedData.asObservable();
   }
 
+  ngOnInit() {
+    if (this.modelId) {
+      this.caseService.get(this.modelId)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res) => {
+          FormHelper.setFormGroupValues(this.formGroup, res);
+
+          this.relatedData.next(this.dataSource);
+          this.relatedData.asObservable();
+        }
+        );
+    }
+  }
+
   onSave(close?: boolean) {
     if (!this.validateForm(this.formGroup)) {
       return;
@@ -151,7 +147,7 @@ export class CaseFormComponent extends FormComponent implements OnInit {
 
     if (this.dataSource.length !== 0) {
       this.dataSource.forEach(x => {
-          casee.videos.push(x.id);
+        casee.videos.push(x.id);
       });
     }
 
