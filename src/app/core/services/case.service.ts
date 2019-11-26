@@ -16,8 +16,12 @@ export class CaseService extends Service {
     super();
   }
 
-  get(id: number): Observable<any> {
-    return this.apiService.get(`/case/${id}`);
+  get(id: number, params?: HttpParams, expand?: string): Observable<any> {
+    if (expand) {
+      params = params.set('expand', expand);
+    }
+
+    return this.apiService.get(`/case/${id}`, params);
   }
 
   post(casee: Case): Observable<any> {

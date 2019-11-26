@@ -21,8 +21,6 @@ import {
 } from './../../../../shared/components/search-related-item/search-related-item.component';
 import { FormHelper } from './../../../../shared/form-helper';
 
-const ELEMENT_DATA: RelatedItem[] = [];
-
 @Component({
   selector: 'app-case-form',
   templateUrl: './case-form.component.html',
@@ -40,9 +38,8 @@ export class CaseFormComponent extends FormComponent implements OnInit {
 
   modelId: number;
 
-  dataSource = ELEMENT_DATA;
+  dataSource: RelatedItem[] = [];
   relatedData: Subject<RelatedItem[]> = new Subject<RelatedItem[]>();
-  private temp: any;
 
   constructor(
     alertService: AlertService,
@@ -59,23 +56,16 @@ export class CaseFormComponent extends FormComponent implements OnInit {
 
   ngOnInit() {
     if (this.modelId) {
-      this.caseService.get(this.modelId)
+      this.caseService.get(this.modelId, new HttpParams(), 'video')
         .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((res) => {
+        .subscribe(res => {
           FormHelper.setFormGroupValues(this.formGroup, res);
 
-          const videos = res.videos;
+          this.dataSource.push(...res.videos);
+          // TODO: Cria uma lógica aqui para reordernar os itens por "position"
 
-          videos.forEach(x => {
-            this.videoService.get(x.id)
-              .pipe(takeUntil(this.ngUnsubscribe))
-              .subscribe(ress => {
-                this.dataSource.push(ress);
-
-                this.relatedData.next(this.dataSource);
-                this.relatedData.asObservable();
-              });
-          });
+          this.relatedData.next(this.dataSource);
+          this.relatedData.asObservable();
         }
         );
     }
@@ -85,7 +75,6 @@ export class CaseFormComponent extends FormComponent implements OnInit {
     switch (action.type) {
       // When notified by the component that is done to populate
       case RelatedItemActionType.LOADED:
-        this.dataSource = [];
         this.relatedData.next(this.dataSource);
         this.relatedData.asObservable();
         break;
@@ -122,15 +111,11 @@ export class CaseFormComponent extends FormComponent implements OnInit {
         break;
       case RelatedItemActionType.SORT_UP:
         const indexItemUp = this.dataSource.findIndex((item) => item.id === action.element.id);
-        this.temp = this.dataSource[indexItemUp - 1];
-        this.dataSource[indexItemUp - 1] = this.dataSource[indexItemUp];
-        this.dataSource[indexItemUp] = this.temp;
+        this.dataSource.splice((indexItemUp - 1), 0, this.dataSource.splice(indexItemUp, 1)[0]);
         break;
       case RelatedItemActionType.SORT_DOWN:
         const indexItemDown = this.dataSource.findIndex((item) => item.id === action.element.id);
-        this.temp = this.dataSource[indexItemDown + 1];
-        this.dataSource[indexItemDown + 1] = this.dataSource[indexItemDown];
-        this.dataSource[indexItemDown] = this.temp;
+        this.dataSource.splice((indexItemDown + 1), 0, this.dataSource.splice(indexItemDown, 1)[0]);
         break;
       case RelatedItemActionType.DELETE:
         this.dataSource.splice(this.dataSource.findIndex((item) => item.id === action.element.id), 1);
@@ -154,13 +139,12 @@ export class CaseFormComponent extends FormComponent implements OnInit {
     const casee = new Case();
     casee.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup));
     // Reset for edit without closing the form
-    casee.videos = [];
 
-    if (this.dataSource.length !== 0) {
-      this.dataSource.forEach(x => {
-        casee.videos.push(x.id);
-      });
-    }
+    // this.dataSource.forEach((x, i) => {
+    //   x.position = i + 1;
+
+    //   casee.videos.push(x.id);
+    // });
 
     let action$: Observable<any>;
 
