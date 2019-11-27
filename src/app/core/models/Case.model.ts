@@ -1,6 +1,5 @@
 import { Model } from './model';
 import { User } from './User.model';
-import { Video } from './Video.model';
 
 export class Case extends Model {
   id: number;
@@ -11,5 +10,5 @@ export class Case extends Model {
   createdAt?: Date;
   updatedAt?: Date;
   teacher: User;
-  videos: Video[];
+  videos: object[];
 }

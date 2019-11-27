@@ -59,10 +59,11 @@ export class CaseFormComponent extends FormComponent implements OnInit {
       this.caseService.get(this.modelId, new HttpParams(), 'video')
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(res => {
-          FormHelper.setFormGroupValues(this.formGroup, res);
+          FormHelper.setFormGroupValues(this.formGroup, res, ['videos']);
 
-          this.dataSource.push(...res.videos);
-          // TODO: Cria uma lógica aqui para reordernar os itens por "position"
+          res.videos.forEach(x => {
+            this.dataSource.push(x.video);
+          });
 
           this.relatedData.next(this.dataSource);
           this.relatedData.asObservable();
@@ -140,11 +141,10 @@ export class CaseFormComponent extends FormComponent implements OnInit {
     casee.deserialize(FormHelper.getValuesFromFormGroup(this.formGroup));
     // Reset for edit without closing the form
 
-    // this.dataSource.forEach((x, i) => {
-    //   x.position = i + 1;
-
-    //   casee.videos.push(x.id);
-    // });
+    this.dataSource.forEach((x, i) => {
+      const obj = { position: i + 1, video: { id: x.id } };
+      casee.videos.push(obj);
+    });
 
     let action$: Observable<any>;
 
