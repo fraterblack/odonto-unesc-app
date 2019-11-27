@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Video } from 'src/app/core/models/Video.model';
+import { VideoCase } from 'src/app/core/models/VideoCase.model';
 
 import { Case } from './../../../../core/models/Case.model';
 import { AlertService } from './../../../../core/services/alert.service';
@@ -61,9 +63,20 @@ export class CaseFormComponent extends FormComponent implements OnInit {
         .subscribe(res => {
           FormHelper.setFormGroupValues(this.formGroup, res, ['videos']);
 
-          res.videos.forEach(x => {
-            this.dataSource.push(x.video);
-          });
+          res.videos
+            .sort((a, b) => {
+              if (a.position < b.position) {
+                return -1;
+              }
+              if (a.position > b.position) {
+                return 1;
+              }
+
+              return 0;
+            })
+            .forEach(x => {
+              this.dataSource.push(x.video);
+            });
 
           this.relatedData.next(this.dataSource);
           this.relatedData.asObservable();
@@ -142,7 +155,13 @@ export class CaseFormComponent extends FormComponent implements OnInit {
     // Reset for edit without closing the form
 
     this.dataSource.forEach((x, i) => {
-      const obj = { position: i + 1, video: { id: x.id } };
+      const obj = new VideoCase();
+      const video = new Video();
+      video.id = x.id;
+
+      obj.position = i++;
+      obj.video = video;
+
       casee.videos.push(obj);
     });
 
