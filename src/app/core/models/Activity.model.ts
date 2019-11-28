@@ -1,4 +1,5 @@
 import { Model } from './model';
+import { ScriptActivity } from './ScriptActivity.model';
 import { User } from './User.model';
 
 export class Activity extends Model {
@@ -12,4 +13,5 @@ export class Activity extends Model {
   createdAt?: Date;
   updatedAt?: Date;
   teacher: User;
+  scripts: ScriptActivity[];
 }
