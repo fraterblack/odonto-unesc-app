@@ -33,8 +33,8 @@ export class CaseFormComponent extends FormComponent implements OnInit {
   formGroup: FormGroup = new FormGroup({
     title: new FormControl(),
     description: new FormControl(),
-    shared: new FormControl(false),
     videos: new FormControl([]),
+    shared: new FormControl(false),
     active: new FormControl(true)
   });
 

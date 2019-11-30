@@ -1,3 +1,4 @@
+import { CaseScript } from './CaseScript.model';
 import { Model } from './model';
 import { User } from './User.model';
 
@@ -10,4 +11,5 @@ export class Script extends Model {
   createdAt?: Date;
   updatedAt?: Date;
   teacher: User;
+  cases: CaseScript[];
 }

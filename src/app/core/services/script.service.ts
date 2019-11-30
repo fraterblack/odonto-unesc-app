@@ -16,8 +16,12 @@ export class ScriptService extends Service {
     super();
   }
 
-  get(id: number): Observable<any> {
-    return this.apiService.get(`/script/${id}`);
+  get(id: number, params?: HttpParams, expand?: string): Observable<any> {
+    if (expand) {
+      params = params.set('expand', expand);
+    }
+
+    return this.apiService.get(`/script/${id}`, params);
   }
 
   post(script: Script): Observable<any> {
