@@ -21,19 +21,19 @@ export class ActivityService extends Service {
       params = params.set('expand', expand);
     }
 
-    return this.apiService.get(`/Activity/${id}`, params);
+    return this.apiService.get(`/activity/${id}`, params);
   }
 
   post(activity: Activity): Observable<any> {
-    return this.apiService.post(`/Activity`, activity);
+    return this.apiService.post(`/activity`, activity);
   }
 
   put(id: number, activity: Activity): Observable<any> {
-    return this.apiService.put(`/Activity/${id}`, activity);
+    return this.apiService.put(`/activity/${id}`, activity);
   }
 
   delete(id: number): Observable<any> {
-    return this.apiService.delete(`/Activity/${id}`);
+    return this.apiService.delete(`/activity/${id}`);
   }
 
   query(params?: HttpParams, expand?: string): Observable<GridResponse> {
@@ -41,6 +41,6 @@ export class ActivityService extends Service {
       params = params.set('expand', expand);
     }
 
-    return this.apiService.get(`/Activity`, params);
+    return this.apiService.get(`/activity`, params);
   }
 }
